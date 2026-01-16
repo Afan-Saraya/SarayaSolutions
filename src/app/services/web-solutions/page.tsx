@@ -1,9 +1,9 @@
 "use client";
 
 import { 
-  Globe, Code, ArrowRight, Check,
-  Clock, Heart, ShoppingCart, Sparkles,
-  Layers, Palette, Shield, Smartphone, Search, BarChart3
+  Globe, Code, ArrowRight, Check, ExternalLink,
+  Clock, Heart, ShoppingCart, Sparkles, Star,
+  Layers, Palette, Shield, Smartphone, Search, BarChart3, Quote
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import PageAnimations from "@/components/animations/PageAnimations";
@@ -13,39 +13,71 @@ import { useLanguage } from "@/lib/i18n";
 const getServices = (language: string) => [
   {
     title: language === "bs" ? "Korporativne Web Stranice" : "Corporate Websites",
-    description: language === "bs" ? "Profesionalne web stranice koje predstavljaju vaš brand i grade povjerenje kod klijenata." : "Professional websites that represent your brand and build trust with clients.",
+    description: language === "bs" ? "Profesionalne web stranice koje predstavljaju vaš brand." : "Professional websites that represent your brand.",
     icon: Globe,
-    features: language === "bs" ? ["Responzivni dizajn", "SEO optimizacija", "CMS integracija"] : ["Responsive design", "SEO optimization", "CMS integration"],
     color: "purple",
   },
   {
     title: language === "bs" ? "Web Aplikacije" : "Web Applications",
-    description: language === "bs" ? "Kompleksne web aplikacije koje automatiziraju procese i povećavaju produktivnost." : "Complex web applications that automate processes and increase productivity.",
+    description: language === "bs" ? "Kompleksne aplikacije koje automatiziraju procese." : "Complex applications that automate processes.",
     icon: Code,
-    features: language === "bs" ? ["Custom funkcionalnosti", "API integracije", "Real-time podaci"] : ["Custom functionality", "API integrations", "Real-time data"],
     color: "cyan",
   },
   {
     title: language === "bs" ? "E-commerce Platforme" : "E-commerce Platforms",
-    description: language === "bs" ? "Online trgovine optimizirane za konverziju koje pretvaraju posjetitelje u kupce." : "Online stores optimized for conversion that turn visitors into customers.",
+    description: language === "bs" ? "Online trgovine optimizirane za konverziju." : "Online stores optimized for conversion.",
     icon: ShoppingCart,
-    features: language === "bs" ? ["Sigurna plaćanja", "Upravljanje zalihama", "Analitika prodaje"] : ["Secure payments", "Inventory management", "Sales analytics"],
     color: "green",
   },
   {
     title: "UI/UX Dizajn",
-    description: language === "bs" ? "Korisnički orijentirani dizajn koji stvara intuitivna i ugodna digitalna iskustva." : "User-oriented design that creates intuitive and pleasant digital experiences.",
+    description: language === "bs" ? "Korisnički orijentirani dizajn za digitalna iskustva." : "User-oriented design for digital experiences.",
     icon: Palette,
-    features: language === "bs" ? ["User research", "Wireframing", "Prototipiranje"] : ["User research", "Wireframing", "Prototyping"],
     color: "pink",
   },
 ];
 
-const getProcess = (language: string) => [
-  { step: "01", title: language === "bs" ? "Konzultacije" : "Consultation", description: language === "bs" ? "Razumijevamo vaše ciljeve i izazove" : "Understanding your goals and challenges" },
-  { step: "02", title: language === "bs" ? "Strategija" : "Strategy", description: language === "bs" ? "Definiramo optimalno rješenje" : "Defining the optimal solution" },
-  { step: "03", title: language === "bs" ? "Dizajn" : "Design", description: language === "bs" ? "Kreiramo vizualni identitet" : "Creating visual identity" },
-  { step: "04", title: language === "bs" ? "Razvoj" : "Development", description: language === "bs" ? "Implementiramo s najnovijim tehnologijama" : "Implementing with latest technologies" },
+const getPortfolio = (language: string) => [
+  {
+    title: "Pametno Odabrano",
+    category: "E-commerce",
+    url: "https://pametnoodabrano.com/",
+    description: language === "bs" ? "Moderna e-commerce platforma za pametnu kupovinu" : "Modern e-commerce platform for smart shopping",
+    stats: language === "bs" ? "+150% konverzija" : "+150% conversion",
+  },
+  {
+    title: "Saraya Hotspot",
+    category: language === "bs" ? "Web Aplikacija" : "Web App",
+    url: "https://hs.sarayasolutions.com/",
+    description: language === "bs" ? "Captive portal sistem za WiFi mreže" : "Captive portal system for WiFi networks",
+    stats: language === "bs" ? "20K+ korisnika" : "20K+ users",
+  },
+  {
+    title: "BH Telecom Portal",
+    category: language === "bs" ? "Korporativna Stranica" : "Corporate Site",
+    url: "#",
+    description: language === "bs" ? "Korporativni portal za telekom kompaniju" : "Corporate portal for telecom company",
+    stats: language === "bs" ? "500K+ posjeta" : "500K+ visits",
+  },
+];
+
+const getTestimonials = (language: string) => [
+  {
+    quote: language === "bs" 
+      ? "Saraya tim je isporučio web stranicu koja je premašila sva naša očekivanja. Profesionalni, brzi i kreativni."
+      : "Saraya team delivered a website that exceeded all our expectations. Professional, fast and creative.",
+    author: "Amir H.",
+    company: "Pametno Odabrano",
+    rating: 5,
+  },
+  {
+    quote: language === "bs"
+      ? "Naša nova web aplikacija je transformirala način na koji radimo. Preporučujem svima!"
+      : "Our new web application has transformed the way we work. I recommend it to everyone!",
+    author: "Selma K.",
+    company: "BH Telecom",
+    rating: 5,
+  },
 ];
 
 const technologies = [
@@ -55,101 +87,66 @@ const technologies = [
 export default function WebSolutionsPage() {
   const { language } = useLanguage();
   const services = getServices(language);
-  const process = getProcess(language);
+  const portfolio = getPortfolio(language);
+  const testimonials = getTestimonials(language);
 
   return (
     <>
       <PageAnimations />
       
-      {/* Hero Section */}
+      {/* Hero Section - Centered with Portfolio Preview */}
       <section className="relative pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient" />
         <div data-gsap="parallax" className="absolute top-1/4 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary-500/20 rounded-full blur-[120px]" />
         <div data-gsap="parallax" className="absolute bottom-0 left-1/4 w-48 md:w-[400px] h-48 md:h-[400px] bg-pink-500/15 rounded-full blur-[100px]" />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - Device Mockup */}
-            <div data-gsap="hero-title" className="order-2 lg:order-1 flex justify-center lg:justify-start">
-              <DeviceMockup iframeUrl="https://pametnoodabrano.com/" />
-            </div>
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
+              {language === "bs" ? "Web rješenja koja" : "Web solutions that"} <span className="text-gradient">{language === "bs" ? "donose rezultate" : "deliver results"}</span>
+            </h1>
 
-            {/* Right - Content */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
-                {language === "bs" ? "Web rješenja koja" : "Web solutions that"} <span className="text-gradient">{language === "bs" ? "donose rezultate" : "deliver results"}</span>
-              </h1>
-
-              <p data-gsap="hero-desc" className="text-sm md:text-base lg:text-lg text-foreground-muted mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                {language === "bs" 
-                  ? "Gradimo web stranice i aplikacije koje ne samo da izgledaju odlično, već aktivno doprinose rastu vašeg poslovanja."
-                  : "We build websites and applications that not only look great, but actively contribute to the growth of your business."}
-              </p>
-
-              {/* Feature highlights */}
-              <div data-gsap="hero-desc" className="grid grid-cols-2 gap-3 mb-6 md:mb-8 max-w-md mx-auto lg:mx-0">
-                {(language === "bs" ? ["Responzivni dizajn", "SEO optimizacija", "Brzo učitavanje", "Sigurnost"] : ["Responsive design", "SEO optimization", "Fast loading", "Security"]).map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="text-primary-400" size={12} />
-                    </div>
-                    <span className="text-foreground-muted text-xs md:text-sm">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div data-gsap="hero-buttons" className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                <Button variant="primary" size="lg">{language === "bs" ? "Započnite projekt" : "Start project"}<ArrowRight className="ml-2" size={20} /></Button>
-                <Button variant="outline" size="lg">{language === "bs" ? "Pogledajte primjere" : "View examples"}</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Bar */}
-      <section data-gsap="benefits-bar" className="py-6 md:py-10 bg-primary-500/10 border-y border-primary-500/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-6">
-            {(language === "bs" ? ["Responzivni dizajn", "SEO optimizacija", "Brzo učitavanje", "Sigurnost", "Podrška 24/7"] : ["Responsive design", "SEO optimization", "Fast loading", "Security", "24/7 Support"]).map((benefit, index) => (
-              <div key={index} data-gsap="benefits-item" className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-foreground-muted text-xs md:text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-12 md:py-24 bg-background-dark">
-        <div className="container mx-auto px-4">
-          <div data-gsap="section-header" className="text-center mb-8 md:mb-16">
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
-              {language === "bs" ? "Naše" : "Our"} <span className="text-gradient">{language === "bs" ? "usluge" : "services"}</span>
-            </h2>
-            <p className="text-foreground-muted text-sm md:text-base max-w-2xl mx-auto">
-              {language === "bs" ? "Pružamo kompletna web rješenja od dizajna do implementacije" : "We provide complete web solutions from design to implementation"}
+            <p data-gsap="hero-desc" className="text-sm md:text-base lg:text-lg text-foreground-muted mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
+              {language === "bs" 
+                ? "Gradimo web stranice i aplikacije koje ne samo da izgledaju odlično, već aktivno doprinose rastu vašeg poslovanja."
+                : "We build websites and applications that not only look great, but actively contribute to the growth of your business."}
             </p>
+
+            <div data-gsap="hero-buttons" className="flex flex-wrap justify-center gap-3 md:gap-4">
+              <Button variant="primary" size="lg">{language === "bs" ? "Započnite projekt" : "Start project"}<ArrowRight className="ml-2" size={20} /></Button>
+              <Button variant="outline" size="lg">{language === "bs" ? "Pogledajte portfolio" : "View portfolio"}</Button>
+            </div>
           </div>
 
-          <div data-gsap="cards-grid" className="grid md:grid-cols-2 gap-6">
+          {/* Live Portfolio Preview */}
+          <div data-gsap="hero-title" className="flex justify-center">
+            <DeviceMockup iframeUrl="https://pametnoodabrano.com/" />
+          </div>
+        </div>
+      </section>
+
+      {/* Services - Horizontal Scroll Cards */}
+      <section className="py-12 md:py-20 bg-background-dark">
+        <div className="container mx-auto px-4">
+          <div data-gsap="section-header" className="text-center mb-8 md:mb-12">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
+              {language === "bs" ? "Što" : "What we"} <span className="text-gradient">{language === "bs" ? "radimo" : "do"}</span>
+            </h2>
+          </div>
+
+          <div data-gsap="cards-grid" className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {services.map((service) => (
               <div
                 key={service.title}
                 data-gsap="card"
-                className={`p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+                className={`p-4 md:p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 text-center ${
                   service.color === "purple" ? "bg-gradient-to-br from-primary-500/10 to-transparent border-primary-500/20 hover:border-primary-500/40"
                   : service.color === "cyan" ? "bg-gradient-to-br from-cyan-500/10 to-transparent border-cyan-500/20 hover:border-cyan-500/40"
                   : service.color === "green" ? "bg-gradient-to-br from-accent-green/10 to-transparent border-accent-green/20 hover:border-accent-green/40"
                   : "bg-gradient-to-br from-pink-500/10 to-transparent border-pink-500/20 hover:border-pink-500/40"
                 }`}
               >
-                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mb-4 ${
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3 ${
                   service.color === "purple" ? "bg-primary-500/20"
                   : service.color === "cyan" ? "bg-cyan-500/20"
                   : service.color === "green" ? "bg-accent-green/20"
@@ -162,66 +159,107 @@ export default function WebSolutionsPage() {
                     : "text-pink-400"
                   } size={24} />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-2">{service.title}</h3>
-                <p className="text-foreground-muted text-sm mb-4">{service.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {service.features.map((feature, idx) => (
-                    <span key={idx} className="px-3 py-1 rounded-full bg-white/5 text-foreground-muted text-xs">
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+                <h3 className="text-sm md:text-base font-bold text-white mb-1">{service.title}</h3>
+                <p className="text-foreground-muted text-xs hidden md:block">{service.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
+      {/* Portfolio Showcase */}
       <section className="py-12 md:py-24 relative overflow-hidden">
-        <div data-gsap="parallax" className="absolute top-0 left-0 w-64 md:w-[400px] h-64 md:h-[400px] bg-cyan-500/10 rounded-full blur-[120px]" />
+        <div data-gsap="parallax" className="absolute top-0 right-0 w-64 md:w-[400px] h-64 md:h-[400px] bg-primary-500/10 rounded-full blur-[120px]" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div data-gsap="section-header" className="text-center mb-8 md:mb-16">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
-              {language === "bs" ? "Naš" : "Our"} <span className="text-gradient">{language === "bs" ? "proces" : "process"}</span>
+              {language === "bs" ? "Naši" : "Our"} <span className="text-gradient">{language === "bs" ? "projekti" : "projects"}</span>
             </h2>
+            <p className="text-foreground-muted text-sm md:text-base max-w-2xl mx-auto">
+              {language === "bs" ? "Pogledajte neke od projekata koje smo realizirali za naše klijente." : "Check out some of the projects we've completed for our clients."}
+            </p>
           </div>
 
-          <div data-gsap="cards-grid" className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {process.map((item, index) => (
-              <div key={item.step} data-gsap="card" className="relative">
-                <div className="p-4 md:p-6 rounded-2xl bg-background-card border border-primary-500/10 text-center h-full">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary-500 to-pink-500 flex items-center justify-center mx-auto mb-3 md:mb-4">
-                    <span className="text-lg md:text-2xl font-bold text-white">{item.step}</span>
-                  </div>
-                  <h3 className="text-sm md:text-lg font-bold text-white mb-1 md:mb-2">{item.title}</h3>
-                  <p className="text-foreground-muted text-xs md:text-sm">{item.description}</p>
+          <div data-gsap="cards-grid" className="grid md:grid-cols-3 gap-6">
+            {portfolio.map((project, index) => (
+              <div
+                key={project.title}
+                data-gsap="card"
+                className="group relative rounded-2xl bg-background-card border border-primary-500/20 overflow-hidden hover:border-primary-500/40 transition-all"
+              >
+                {/* Project Preview */}
+                <div className="aspect-video bg-gradient-to-br from-primary-500/20 to-pink-500/10 flex items-center justify-center relative overflow-hidden">
+                  <Globe className="text-primary-400/30" size={48} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background-card to-transparent" />
                 </div>
-                {index < process.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-primary-500/50 to-transparent" />
-                )}
+                
+                {/* Project Info */}
+                <div className="p-4 md:p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary-500/20 text-primary-400">{project.category}</span>
+                    <span className="text-xs text-accent-green font-medium">{project.stats}</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                  <p className="text-foreground-muted text-sm mb-4">{project.description}</p>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-primary-400 text-sm hover:text-primary-300 transition-colors">
+                    {language === "bs" ? "Pogledaj projekt" : "View project"} <ExternalLink size={14} className="ml-1" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Technologies Section */}
+      {/* Testimonials */}
       <section className="py-12 md:py-24 bg-background-dark">
         <div className="container mx-auto px-4">
           <div data-gsap="section-header" className="text-center mb-8 md:mb-12">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
+              {language === "bs" ? "Šta kažu" : "What our"} <span className="text-gradient">{language === "bs" ? "klijenti" : "clients say"}</span>
+            </h2>
+          </div>
+
+          <div data-gsap="cards-grid" className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                data-gsap="card"
+                className="p-6 md:p-8 rounded-2xl bg-background-card border border-primary-500/20 relative"
+              >
+                <Quote className="absolute top-4 right-4 text-primary-500/20" size={32} />
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="text-yellow-400 fill-yellow-400" size={16} />
+                  ))}
+                </div>
+                <p className="text-foreground-muted text-sm md:text-base mb-4 italic">&quot;{testimonial.quote}&quot;</p>
+                <div>
+                  <p className="text-white font-medium">{testimonial.author}</p>
+                  <p className="text-foreground-muted text-sm">{testimonial.company}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Technologies */}
+      <section className="py-12 md:py-20">
+        <div className="container mx-auto px-4">
+          <div data-gsap="section-header" className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold mb-2">
               {language === "bs" ? "Tehnologije koje" : "Technologies we"} <span className="text-gradient">{language === "bs" ? "koristimo" : "use"}</span>
             </h2>
           </div>
 
-          <div data-gsap="tags" className="flex flex-wrap justify-center gap-3 md:gap-4">
+          <div data-gsap="tags" className="flex flex-wrap justify-center gap-3">
             {technologies.map((tech) => (
               <div
                 key={tech}
                 data-gsap="tag"
-                className="px-4 py-2 md:px-6 md:py-3 rounded-full bg-background-card border border-primary-500/20 text-white text-sm md:text-base font-medium hover:border-primary-500/50 hover:bg-primary-500/10 transition-all cursor-default"
+                className="px-4 py-2 rounded-full bg-background-card border border-primary-500/20 text-white text-sm font-medium hover:border-primary-500/50 hover:bg-primary-500/10 transition-all cursor-default"
               >
                 {tech}
               </div>
@@ -230,63 +268,39 @@ export default function WebSolutionsPage() {
         </div>
       </section>
 
-      {/* Why Us Section */}
-      <section className="py-12 md:py-24 relative">
+      {/* Why Us - Compact */}
+      <section className="py-12 md:py-20 bg-background-dark">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div data-gsap="content-left">
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
-                {language === "bs" ? "Zašto odabrati" : "Why choose"} <span className="text-gradient">Saraya</span>?
+          <div className="max-w-4xl mx-auto">
+            <div data-gsap="section-header" className="text-center mb-8">
+              <h2 className="text-xl md:text-3xl font-bold mb-2">
+                {language === "bs" ? "Zašto" : "Why"} <span className="text-gradient">Saraya</span>?
               </h2>
-              <p className="text-foreground-muted text-sm md:text-base mb-6 leading-relaxed">
-                {language === "bs" 
-                  ? "Kombiniramo kreativnost s tehničkom ekspertizom kako bismo isporučili web rješenja koja nadmašuju očekivanja."
-                  : "We combine creativity with technical expertise to deliver web solutions that exceed expectations."}
-              </p>
-
-              <div data-gsap="list" className="space-y-4">
-                {[
-                  { icon: Shield, text: language === "bs" ? "Sigurnost na prvom mjestu" : "Security first" },
-                  { icon: Smartphone, text: language === "bs" ? "Mobile-first pristup" : "Mobile-first approach" },
-                  { icon: Search, text: language === "bs" ? "SEO optimizacija uključena" : "SEO optimization included" },
-                  { icon: BarChart3, text: language === "bs" ? "Analitika i izvještaji" : "Analytics and reports" },
-                  { icon: Clock, text: language === "bs" ? "Brza isporuka projekata" : "Fast project delivery" },
-                  { icon: Heart, text: language === "bs" ? "Podrška nakon lansiranja" : "Post-launch support" },
-                ].map((item, index) => (
-                  <div key={index} data-gsap="list-item" className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="text-primary-400" size={18} />
-                    </div>
-                    <span className="text-white text-sm md:text-base">{item.text}</span>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div data-gsap="content-right" className="relative">
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary-500/20 via-background-card to-pink-500/20 border border-primary-500/20 p-8 flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
-                  <div className="aspect-square rounded-2xl bg-primary-500/20 flex items-center justify-center">
-                    <Globe className="text-primary-400" size={40} />
+            <div data-gsap="cards-grid" className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                { icon: Shield, text: language === "bs" ? "Sigurnost" : "Security" },
+                { icon: Smartphone, text: "Mobile-first" },
+                { icon: Search, text: "SEO" },
+                { icon: BarChart3, text: language === "bs" ? "Analitika" : "Analytics" },
+                { icon: Clock, text: language === "bs" ? "Brza isporuka" : "Fast delivery" },
+                { icon: Heart, text: language === "bs" ? "Podrška" : "Support" },
+              ].map((item, index) => (
+                <div key={index} data-gsap="card" className="flex items-center gap-3 p-3 rounded-xl bg-background-card border border-primary-500/10">
+                  <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="text-primary-400" size={16} />
                   </div>
-                  <div className="aspect-square rounded-2xl bg-cyan-500/20 flex items-center justify-center">
-                    <Code className="text-cyan-400" size={40} />
-                  </div>
-                  <div className="aspect-square rounded-2xl bg-accent-green/20 flex items-center justify-center">
-                    <Layers className="text-accent-green" size={40} />
-                  </div>
-                  <div className="aspect-square rounded-2xl bg-pink-500/20 flex items-center justify-center">
-                    <Sparkles className="text-pink-400" size={40} />
-                  </div>
+                  <span className="text-white text-sm">{item.text}</span>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-12 md:py-24 bg-background-dark relative overflow-hidden">
+      <section className="py-12 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-pink-500/10" />
         
         <div className="container mx-auto px-4 relative z-10">
@@ -303,9 +317,6 @@ export default function WebSolutionsPage() {
               <Button variant="primary" size="lg">
                 {language === "bs" ? "Započnite projekt" : "Start project"}
                 <ArrowRight className="ml-2" size={20} />
-              </Button>
-              <Button variant="outline" size="lg">
-                {language === "bs" ? "Kontaktirajte nas" : "Contact us"}
               </Button>
             </div>
           </div>

@@ -781,3 +781,4 @@ export const translations = {
 } as const;
 
 export type Translations = typeof translations;
+export type TranslationType = typeof translations.bs | typeof translations.en;

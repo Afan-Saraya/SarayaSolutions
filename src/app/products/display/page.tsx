@@ -209,27 +209,7 @@ export default function DisplayPage() {
         </div>
       </section>
 
-      {/* Benefits Bar */}
-      <section data-gsap="benefits-bar" className="py-6 md:py-10 bg-primary-500/10 border-y border-primary-500/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-6">
-            {(language === "bs" ? ["4K Ultra HD", "Outdoor & Indoor", "24/7 Podrška", "Garancija kvalitete", "Domaći proizvod"] : ["4K Ultra HD", "Outdoor & Indoor", "24/7 Support", "Quality guarantee", "Made in BiH"]).map((benefit, index) => (
-              <div key={index} data-gsap="benefits-item" className="flex items-center gap-2">
-                {(benefit.toLowerCase().includes("domaći") || benefit.toLowerCase().includes("made in")) ? (
-                  <div className="relative w-5 h-5 md:w-6 md:h-6 flex-shrink-0">
-                    <Image src="/images/bih-znak.png" alt="BiH" fill className="object-contain" />
-                  </div>
-                ) : (
-                  <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                )}
-                <span className="text-foreground-muted text-xs md:text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Display Packages */}
       <section className="py-12 md:py-24 bg-background-dark">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ExternalLink, MousePointer, Hand } from "lucide-react";
 
 interface DeviceMockupProps {
@@ -12,6 +12,19 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
   const [isInteractive, setIsInteractive] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [desktopScale, setDesktopScale] = useState(0.35);
+  const [mobileScale, setMobileScale] = useState(0.18);
+  
+  const desktopContainerRef = useRef<HTMLDivElement>(null);
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
+
+  // Desktop: 1920x1080 (16:9)
+  const desktopWidth = 1920;
+  const desktopHeight = 1080;
+  
+  // Mobile: 390x844 (iPhone 14 Pro)
+  const mobileWidth = 390;
+  const mobileHeight = 844;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -20,6 +33,32 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const calculateScales = () => {
+      if (desktopContainerRef.current) {
+        const containerWidth = desktopContainerRef.current.offsetWidth;
+        const scale = containerWidth / desktopWidth;
+        setDesktopScale(scale);
+      }
+      if (mobileContainerRef.current) {
+        const containerWidth = mobileContainerRef.current.offsetWidth;
+        const scale = containerWidth / mobileWidth;
+        setMobileScale(scale);
+      }
+    };
+
+    calculateScales();
+    window.addEventListener('resize', calculateScales);
+    
+    // Recalculate after a short delay to ensure container is rendered
+    const timeout = setTimeout(calculateScales, 100);
+    
+    return () => {
+      window.removeEventListener('resize', calculateScales);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const handleInteraction = () => {
@@ -69,14 +108,24 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
         >
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[70%] h-3 bg-black/30 blur-xl rounded-full" />
 
-          <div className="relative w-[240px] sm:w-[280px] md:w-[340px] lg:w-[400px]">
+          <div className="relative w-[300px] sm:w-[400px] md:w-[520px] lg:w-[600px] xl:w-[680px]">
             <div className="relative bg-[#1a1a1e] rounded-lg p-[4px] md:p-[6px] shadow-2xl shadow-black/50">
               <div className="relative bg-[#0d0d0f] rounded-md overflow-hidden">
-                <div className="relative bg-white overflow-hidden" style={{ aspectRatio: '16/10' }}>
+                {/* Desktop screen container - maintains 16:9 aspect ratio */}
+                <div 
+                  ref={desktopContainerRef}
+                  className="relative bg-white overflow-hidden" 
+                  style={{ aspectRatio: '16/9' }}
+                >
+                  {/* Iframe renders at 1920x1080 and scales down to fit container */}
                   <iframe
                     src={iframeUrl}
-                    className={`w-full h-full border-0 scale-[0.5] origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
-                    style={{ width: '200%', height: '200%' }}
+                    className={`absolute top-0 left-0 border-0 origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
+                    style={{ 
+                      width: `${desktopWidth}px`, 
+                      height: `${desktopHeight}px`,
+                      transform: `scale(${desktopScale})`,
+                    }}
                     title="Desktop Preview"
                   />
                   
@@ -98,36 +147,45 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
                     </div>
                   )}
                   
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none z-[5]" />
                 </div>
               </div>
               <div className="h-2 md:h-3 flex items-center justify-center mt-0.5">
                 <div className="w-4 md:w-6 h-0.5 rounded-full bg-[#2a2a30]" />
               </div>
             </div>
-            <div className="mx-auto w-8 md:w-12 h-5 md:h-8 bg-gradient-to-b from-[#1a1a1e] via-[#252528] to-[#1a1a1e]" />
-            <div className="mx-auto w-16 md:w-24 h-1 md:h-2 bg-gradient-to-b from-[#252528] to-[#1a1a1e] rounded-full" />
+            <div className="mx-auto w-10 md:w-14 h-6 md:h-10 bg-gradient-to-b from-[#1a1a1e] via-[#252528] to-[#1a1a1e]" />
+            <div className="mx-auto w-20 md:w-28 h-1.5 md:h-2 bg-gradient-to-b from-[#252528] to-[#1a1a1e] rounded-full" />
           </div>
         </div>
 
         {/* Phone Mockup - Overlapping */}
-        <div className="absolute -right-6 sm:-right-10 md:-right-14 lg:-right-16 -bottom-4 md:-bottom-6">
+        <div className="absolute -right-2 sm:-right-6 md:-right-8 lg:-right-10 -bottom-6 md:-bottom-8">
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[60%] h-2 bg-black/30 blur-lg rounded-full" />
           
           <div 
-            className="relative w-[60px] sm:w-[80px] md:w-[100px] lg:w-[120px]"
+            className="relative w-[70px] sm:w-[90px] md:w-[110px] lg:w-[130px]"
             onMouseEnter={handleInteraction}
             onMouseLeave={handleMouseLeave}
             onTouchStart={handleInteraction}
           >
-            <div className="relative bg-[#1a1a1e] rounded-[12px] sm:rounded-[16px] md:rounded-[20px] p-[2px] md:p-[3px] shadow-2xl shadow-black/50">
-              <div className="relative bg-[#0d0d0f] rounded-[10px] sm:rounded-[14px] md:rounded-[17px] overflow-hidden">
-                <div className="absolute top-1 md:top-2 left-1/2 -translate-x-1/2 w-6 sm:w-8 md:w-10 h-1.5 md:h-2.5 bg-[#0d0d0f] rounded-full z-20" />
-                <div className="relative bg-white rounded-[8px] sm:rounded-[12px] md:rounded-[14px] overflow-hidden" style={{ aspectRatio: '9/19.5' }}>
+            <div className="relative bg-[#1a1a1e] rounded-[14px] sm:rounded-[18px] md:rounded-[22px] p-[2px] md:p-[3px] shadow-2xl shadow-black/50">
+              <div className="relative bg-[#0d0d0f] rounded-[12px] sm:rounded-[16px] md:rounded-[19px] overflow-hidden">
+                <div className="absolute top-1.5 md:top-2 left-1/2 -translate-x-1/2 w-8 sm:w-10 md:w-12 h-2 md:h-3 bg-[#0d0d0f] rounded-full z-20" />
+                <div 
+                  ref={mobileContainerRef}
+                  className="relative bg-white rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden" 
+                  style={{ aspectRatio: `${mobileWidth}/${mobileHeight}` }}
+                >
+                  {/* Mobile iframe - renders at 390x844 and scales down */}
                   <iframe
                     src={iframeUrl}
-                    className={`w-full h-full border-0 scale-[0.25] origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
-                    style={{ width: '400%', height: '400%' }}
+                    className={`absolute top-0 left-0 border-0 origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
+                    style={{ 
+                      width: `${mobileWidth}px`, 
+                      height: `${mobileHeight}px`,
+                      transform: `scale(${mobileScale})`,
+                    }}
                     title="Mobile Preview"
                   />
                   
@@ -139,19 +197,19 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
                       onTouchEnd={enableInteraction}
                     >
                       {isMobile ? (
-                        <Hand className="text-white" size={12} />
+                        <Hand className="text-white" size={14} />
                       ) : (
-                        <MousePointer className="text-white" size={12} />
+                        <MousePointer className="text-white" size={14} />
                       )}
                     </div>
                   )}
                   
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none z-[5]" />
                 </div>
               </div>
-              <div className="absolute right-[-1px] top-8 sm:top-10 md:top-14 w-[1px] md:w-[2px] h-4 md:h-6 bg-[#252528] rounded-r-sm" />
-              <div className="absolute left-[-1px] top-6 sm:top-8 md:top-10 w-[1px] md:w-[2px] h-2 md:h-4 bg-[#252528] rounded-l-sm" />
-              <div className="absolute left-[-1px] top-10 sm:top-14 md:top-18 w-[1px] md:w-[2px] h-4 md:h-6 bg-[#252528] rounded-l-sm" />
+              <div className="absolute right-[-1px] top-10 sm:top-12 md:top-16 w-[1px] md:w-[2px] h-5 md:h-7 bg-[#252528] rounded-r-sm" />
+              <div className="absolute left-[-1px] top-8 sm:top-10 md:top-12 w-[1px] md:w-[2px] h-3 md:h-5 bg-[#252528] rounded-l-sm" />
+              <div className="absolute left-[-1px] top-14 sm:top-16 md:top-20 w-[1px] md:w-[2px] h-5 md:h-7 bg-[#252528] rounded-l-sm" />
             </div>
           </div>
         </div>
