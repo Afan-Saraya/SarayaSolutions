@@ -1,7 +1,5 @@
 "use client";
 
-import { Check } from "lucide-react";
-
 export interface PortalBenefitsProps {
   /** Benefits section title */
   title?: string;
@@ -10,26 +8,23 @@ export interface PortalBenefitsProps {
 }
 
 const defaultBenefits = [
-  "Potpuna prilagodba vašem brendu i poslovanju",
+  "Potpuna prilagodba vašem brendu",
   "Skalabilnost — od jedne do stotine lokacija",
-  "Integracija s loyalty programima i CRM sistemima",
+  "Integracija s loyalty programima",
   "Detaljni izvještaji o ponašanju korisnika",
-  "Personalizirani sadržaji bazirani na lokaciji i vremenu",
 ];
 
 export default function PortalBenefits({
-  title = "Prednosti Saraya Hotspot Rješenja:",
+  title = "Prednosti Saraya Hotspot Rješenja",
   benefits = defaultBenefits,
 }: PortalBenefitsProps) {
   return (
-    <div className="p-8 rounded-2xl bg-gradient-to-r from-primary-900/30 to-background-card border border-primary-500/20">
+    <div className="p-6 md:p-8 rounded-2xl bg-background-card border border-white/5">
       <h3 className="text-xl font-bold text-white mb-6">{title}</h3>
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-4">
         {benefits.map((benefit, index) => (
-          <div key={index} className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-accent-green/20 flex items-center justify-center mt-0.5 flex-shrink-0">
-              <Check className="text-accent-green" size={12} />
-            </div>
+          <div key={index} className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
             <span className="text-foreground-muted text-sm">{benefit}</span>
           </div>
         ))}

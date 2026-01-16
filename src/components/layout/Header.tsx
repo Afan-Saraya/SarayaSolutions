@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ChevronRight, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Wifi, Monitor, Globe, Smartphone, Gamepad2, Printer } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -11,7 +11,7 @@ import LanguageSwitcher from "../ui/LanguageSwitcher";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -21,13 +21,12 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsAtTop(window.scrollY <= 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -39,263 +38,277 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const navWrapperClasses = isAtTop
+    ? "mx-3 md:mx-6 mt-3 md:mt-4"
+    : "mx-0 mt-0";
+
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full max-w-[100vw]",
-          isScrolled ? "glass py-3" : "bg-transparent py-5"
-        )}
-      >
-        <div className="container mx-auto px-4 max-w-full">
-          <nav className="flex items-center justify-between">
-            <Link href="/" className="flex items-center relative z-50">
-              <Image
-                src="/images/logoSaraya.png"
-                alt="Saraya Solutions"
-                width={180}
-                height={40}
-                className="h-8 sm:h-10 w-auto"
-                priority
-              />
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              <Link
-                href="/"
-                className="text-foreground-muted hover:text-white transition-colors duration-200"
-              >
-                {t.nav.home}
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navWrapperClasses}`}>
+        <motion.header
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className={cn(
+            "transition-all duration-500",
+            isAtTop 
+              ? "rounded-2xl bg-gradient-to-r from-[#0d0d12]/95 via-[#12121a]/98 to-[#0d0d12]/95 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(139,92,246,0.08)]" 
+              : "bg-[#0d0d12]/98 backdrop-blur-2xl border-b border-white/[0.06] shadow-lg shadow-black/20"
+          )}
+        >
+          <nav className="px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16 lg:h-[72px]">
+              {/* Logo */}
+              <Link href="/" className="flex items-center gap-3 group relative z-50">
+                <div className="relative">
+                  <div className="absolute -inset-3 bg-gradient-to-r from-primary-500/25 to-pink-500/25 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  <Image
+                    src="/images/logoSaraya.png"
+                    alt="Saraya Solutions"
+                    width={160}
+                    height={36}
+                    className="h-8 sm:h-9 w-auto relative drop-shadow-[0_0_12px_rgba(139,92,246,0.3)]"
+                    priority
+                  />
+                </div>
               </Link>
 
-              {/* Products Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsProductsOpen(true)}
-                onMouseLeave={() => setIsProductsOpen(false)}
-              >
-                <button className="flex items-center gap-1 text-foreground-muted hover:text-white transition-colors duration-200">
-                  {t.nav.products}
-                  <ChevronDown 
-                    size={16} 
-                    className={cn(
-                      "transition-transform duration-200",
-                      isProductsOpen && "rotate-180"
-                    )} 
-                  />
-                </button>
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center">
+                <div className="flex items-center bg-white/[0.04] backdrop-blur-sm rounded-full p-1.5 border border-white/[0.06]">
+                  <Link
+                    href="/"
+                    className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]"
+                  >
+                    {t.nav.home}
+                  </Link>
 
-                <AnimatePresence>
-                  {isProductsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-48 py-2 rounded-xl glass border border-primary-500/20"
-                    >
-                      <Link
-                        href="/products/saraya-connect"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.products.sarayaConnect}
-                      </Link>
-                      <Link
-                        href="/products/display"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.products.display}
-                      </Link>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  {/* Products Dropdown */}
+                  <div 
+                    className="relative"
+                    onMouseEnter={() => setIsProductsOpen(true)}
+                    onMouseLeave={() => setIsProductsOpen(false)}
+                  >
+                    <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]">
+                      {t.nav.products}
+                      <ChevronDown 
+                        size={14} 
+                        className={cn(
+                          "transition-transform duration-200",
+                          isProductsOpen && "rotate-180"
+                        )} 
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isProductsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 py-2 rounded-2xl bg-[#12121a]/98 backdrop-blur-2xl border border-white/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+                        >
+                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#12121a]/98 border-l border-t border-white/[0.08] rotate-45" />
+                          <Link
+                            href="/products/saraya-connect"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-accent-green/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-green/20 to-accent-green/5 flex items-center justify-center border border-accent-green/20 group-hover:border-accent-green/40 transition-colors">
+                              <Wifi className="w-4 h-4 text-accent-green" />
+                            </div>
+                            <span className="text-sm font-medium">{t.products.sarayaConnect}</span>
+                          </Link>
+                          <Link
+                            href="/products/display"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-primary-500/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500/20 to-primary-500/5 flex items-center justify-center border border-primary-500/20 group-hover:border-primary-500/40 transition-colors">
+                              <Monitor className="w-4 h-4 text-primary-400" />
+                            </div>
+                            <span className="text-sm font-medium">{t.products.display}</span>
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Services Dropdown */}
+                  <div 
+                    className="relative"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                    onMouseLeave={() => setIsServicesOpen(false)}
+                  >
+                    <button className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]">
+                      {t.nav.services}
+                      <ChevronDown 
+                        size={14} 
+                        className={cn(
+                          "transition-transform duration-200",
+                          isServicesOpen && "rotate-180"
+                        )} 
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isServicesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 py-2 rounded-2xl bg-[#12121a]/98 backdrop-blur-2xl border border-white/[0.08] shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+                        >
+                          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#12121a]/98 border-l border-t border-white/[0.08] rotate-45" />
+                          <Link
+                            href="/services/web-solutions"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center border border-blue-500/20 group-hover:border-blue-500/40 transition-colors">
+                              <Globe className="w-4 h-4 text-blue-400" />
+                            </div>
+                            <span className="text-sm font-medium">{t.services.webSolutions}</span>
+                          </Link>
+                          <Link
+                            href="/services/applications"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 flex items-center justify-center border border-cyan-500/20 group-hover:border-cyan-500/40 transition-colors">
+                              <Smartphone className="w-4 h-4 text-cyan-400" />
+                            </div>
+                            <span className="text-sm font-medium">{t.services.applications}</span>
+                          </Link>
+                          <Link
+                            href="/services/games"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-pink-500/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 flex items-center justify-center border border-pink-500/20 group-hover:border-pink-500/40 transition-colors">
+                              <Gamepad2 className="w-4 h-4 text-pink-400" />
+                            </div>
+                            <span className="text-sm font-medium">{t.services.games}</span>
+                          </Link>
+                          <Link
+                            href="/services/print"
+                            className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl text-white/70 hover:text-white hover:bg-gradient-to-r hover:from-orange-500/10 hover:to-transparent transition-all duration-200 group"
+                          >
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-500/5 flex items-center justify-center border border-orange-500/20 group-hover:border-orange-500/40 transition-colors">
+                              <Printer className="w-4 h-4 text-orange-400" />
+                            </div>
+                            <span className="text-sm font-medium">{t.services.print}</span>
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <Link
+                    href="/technology"
+                    className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]"
+                  >
+                    {t.nav.technology}
+                  </Link>
+                  <Link
+                    href="/references"
+                    className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]"
+                  >
+                    {t.nav.references}
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white/70 hover:text-white hover:bg-white/[0.08]"
+                  >
+                    {t.nav.about}
+                  </Link>
+                </div>
               </div>
 
-              {/* Services Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-              >
-                <button className="flex items-center gap-1 text-foreground-muted hover:text-white transition-colors duration-200">
-                  {t.nav.services}
-                  <ChevronDown 
-                    size={16} 
-                    className={cn(
-                      "transition-transform duration-200",
-                      isServicesOpen && "rotate-180"
-                    )} 
-                  />
+              {/* Actions */}
+              <div className="flex items-center gap-3">
+                <div className="hidden lg:block">
+                  <LanguageSwitcher />
+                </div>
+                
+                <Link 
+                  href="/contact"
+                  className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary-500 via-primary-600 to-pink-500 text-white text-sm font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_6px_28px_rgba(139,92,246,0.5)] hover:scale-[1.03] active:scale-[0.98]"
+                >
+                  {t.nav.contactUs}
+                </Link>
+
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="lg:hidden p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/70 hover:bg-white/[0.08] hover:text-white transition-all duration-200"
+                  aria-label="Toggle menu"
+                >
+                  <Menu className="w-5 h-5" />
                 </button>
-
-                <AnimatePresence>
-                  {isServicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-48 py-2 rounded-xl glass border border-primary-500/20"
-                    >
-                      <Link
-                        href="/services/web-solutions"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.services.webSolutions}
-                      </Link>
-                      <Link
-                        href="/services/applications"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.services.applications}
-                      </Link>
-                      <Link
-                        href="/services/games"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.services.games}
-                      </Link>
-                      <Link
-                        href="/services/print"
-                        className="block px-4 py-2 text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
-                      >
-                        {t.services.print}
-                      </Link>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
-
-              <Link
-                href="/technology"
-                className="text-foreground-muted hover:text-white transition-colors duration-200"
-              >
-                {t.nav.technology}
-              </Link>
-              <Link
-                href="/references"
-                className="text-foreground-muted hover:text-white transition-colors duration-200"
-              >
-                {t.nav.references}
-              </Link>
-              <Link
-                href="/about"
-                className="text-foreground-muted hover:text-white transition-colors duration-200"
-              >
-                {t.nav.about}
-              </Link>
             </div>
-
-            <div className="hidden lg:block">
-              <LanguageSwitcher />
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden text-white p-2 relative z-50"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <AnimatePresence mode="wait">
-                {isMobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X size={24} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu size={24} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
           </nav>
-        </div>
-      </motion.header>
+        </motion.header>
+      </div>
 
       {/* Mobile Navigation Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Slide-in Menu */}
             <motion.div
-              initial={{ x: "-100%" }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-background-dark border-r border-primary-500/20 z-50 lg:hidden overflow-y-auto"
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 350 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-gradient-to-b from-[#0d0d12] via-[#0f0f16] to-[#0a0a0f] z-50 lg:hidden shadow-[0_0_60px_rgba(0,0,0,0.8)] overflow-y-auto"
             >
               {/* Menu Header */}
-              <div className="p-6 border-b border-primary-500/10">
-                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Image
-                    src="/images/logoSaraya.png"
-                    alt="Saraya Solutions"
-                    width={150}
-                    height={35}
-                    className="h-8 w-auto"
-                  />
-                </Link>
+              <div className="p-5 flex items-center justify-between border-b border-white/[0.06]">
+                <Image
+                  src="/images/logoSaraya.png"
+                  alt="Saraya Solutions"
+                  width={120}
+                  height={28}
+                  className="h-7 w-auto"
+                />
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white/60 hover:bg-white/[0.08] hover:text-white transition-all duration-200"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
               {/* Menu Content */}
-              <div className="p-6">
-                {/* Language Switcher for Mobile */}
-                <div className="mb-6">
+              <div className="p-5">
+                <div className="mb-6 p-1.5 bg-white/[0.03] rounded-xl border border-white/[0.06]">
                   <LanguageSwitcher className="w-full justify-center" />
                 </div>
 
-                {/* Main Links */}
-                <div className="space-y-1">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
+                <nav className="space-y-1">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3.5 rounded-xl text-white font-medium hover:bg-white/[0.04] transition-all duration-200"
                   >
-                    <Link
-                      href="/"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <Sparkles size={18} className="text-primary-400" />
-                      {t.nav.home}
-                    </Link>
-                  </motion.div>
+                    {t.nav.home}
+                  </Link>
 
                   {/* Products Accordion */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15 }}
-                  >
+                  <div className="rounded-xl overflow-hidden">
                     <button
                       onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                      className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
+                      className={cn(
+                        "flex items-center justify-between w-full px-4 py-3.5 text-white font-medium transition-all duration-200",
+                        mobileProductsOpen ? "bg-white/[0.04]" : "hover:bg-white/[0.04]"
+                      )}
                     >
                       <span>{t.nav.products}</span>
                       <ChevronRight
@@ -313,38 +326,39 @@ export default function Header() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
+                          className="overflow-hidden bg-white/[0.02]"
                         >
-                          <div className="ml-4 pl-4 border-l border-primary-500/20 space-y-1 py-2">
+                          <div className="py-2 space-y-1">
                             <Link
                               href="/products/saraya-connect"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-accent-green shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
                               {t.products.sarayaConnect}
                             </Link>
                             <Link
                               href="/products/display"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-primary-400 shadow-[0_0_8px_rgba(139,92,246,0.5)]" />
                               {t.products.display}
                             </Link>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
 
                   {/* Services Accordion */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
+                  <div className="rounded-xl overflow-hidden">
                     <button
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                      className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
+                      className={cn(
+                        "flex items-center justify-between w-full px-4 py-3.5 text-white font-medium transition-all duration-200",
+                        mobileServicesOpen ? "bg-white/[0.04]" : "hover:bg-white/[0.04]"
+                      )}
                     >
                       <span>{t.nav.services}</span>
                       <ChevronRight
@@ -362,110 +376,83 @@ export default function Header() {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
+                          className="overflow-hidden bg-white/[0.02]"
                         >
-                          <div className="ml-4 pl-4 border-l border-primary-500/20 space-y-1 py-2">
+                          <div className="py-2 space-y-1">
                             <Link
                               href="/services/web-solutions"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
                               {t.services.webSolutions}
                             </Link>
                             <Link
                               href="/services/applications"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
                               {t.services.applications}
                             </Link>
                             <Link
                               href="/services/games"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-pink-400 shadow-[0_0_8px_rgba(236,72,153,0.5)]" />
                               {t.services.games}
                             </Link>
                             <Link
                               href="/services/print"
-                              className="block px-4 py-2 rounded-lg text-foreground-muted hover:text-white hover:bg-primary-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
+                              <div className="w-2 h-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.5)]" />
                               {t.services.print}
                             </Link>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
 
-                  {/* Other Links */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 }}
+                  <Link
+                    href="/technology"
+                    className="block px-4 py-3.5 rounded-xl text-white font-medium hover:bg-white/[0.04] transition-all duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Link
-                      href="/technology"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {t.nav.technology}
-                    </Link>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
+                    {t.nav.technology}
+                  </Link>
+                  <Link
+                    href="/references"
+                    className="block px-4 py-3.5 rounded-xl text-white font-medium hover:bg-white/[0.04] transition-all duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Link
-                      href="/references"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {t.nav.references}
-                    </Link>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
+                    {t.nav.references}
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block px-4 py-3.5 rounded-xl text-white font-medium hover:bg-white/[0.04] transition-all duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Link
-                      href="/about"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-white hover:bg-primary-500/10 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {t.nav.about}
-                    </Link>
-                  </motion.div>
+                    {t.nav.about}
+                  </Link>
+                </nav>
+
+                <div className="mt-8">
+                  <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary-500 via-primary-600 to-pink-500 text-white font-semibold shadow-[0_4px_20px_rgba(139,92,246,0.35)] hover:shadow-[0_6px_28px_rgba(139,92,246,0.5)] transition-all duration-300">
+                      {t.nav.contactUs}
+                    </button>
+                  </Link>
                 </div>
 
-                {/* CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="mt-8"
-                >
-                  <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Button variant="primary" size="lg" className="w-full">
-                      {t.nav.contactUs}
-                    </Button>
-                  </Link>
-                </motion.div>
-
-                {/* Decorative Element */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-8 p-4 rounded-xl bg-gradient-to-br from-primary-500/10 to-pink-500/10 border border-primary-500/20"
-                >
-                  <p className="text-sm text-foreground-muted">
+                <div className="mt-8 p-4 rounded-2xl bg-gradient-to-br from-primary-500/[0.08] via-transparent to-pink-500/[0.08] border border-white/[0.04]">
+                  <p className="text-sm text-white/40 text-center">
                     {t.common.madeInBiH}
                   </p>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </>

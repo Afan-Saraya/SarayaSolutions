@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ExternalLink, MousePointer, Hand } from "lucide-react";
 
 interface DeviceMockupProps {
@@ -12,19 +12,6 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
   const [isInteractive, setIsInteractive] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [desktopScale, setDesktopScale] = useState(0.35);
-  const [mobileScale, setMobileScale] = useState(0.18);
-  
-  const desktopContainerRef = useRef<HTMLDivElement>(null);
-  const mobileContainerRef = useRef<HTMLDivElement>(null);
-
-  // Desktop: 1920x1080 (16:9)
-  const desktopWidth = 1920;
-  const desktopHeight = 1080;
-  
-  // Mobile: 390x844 (iPhone 14 Pro)
-  const mobileWidth = 390;
-  const mobileHeight = 844;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -33,32 +20,6 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const calculateScales = () => {
-      if (desktopContainerRef.current) {
-        const containerWidth = desktopContainerRef.current.offsetWidth;
-        const scale = containerWidth / desktopWidth;
-        setDesktopScale(scale);
-      }
-      if (mobileContainerRef.current) {
-        const containerWidth = mobileContainerRef.current.offsetWidth;
-        const scale = containerWidth / mobileWidth;
-        setMobileScale(scale);
-      }
-    };
-
-    calculateScales();
-    window.addEventListener('resize', calculateScales);
-    
-    // Recalculate after a short delay to ensure container is rendered
-    const timeout = setTimeout(calculateScales, 100);
-    
-    return () => {
-      window.removeEventListener('resize', calculateScales);
-      clearTimeout(timeout);
-    };
   }, []);
 
   const handleInteraction = () => {
@@ -79,8 +40,11 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
     setShowOverlay(false);
   };
 
-  // Show overlay by default on mobile until interaction is enabled
   const shouldShowOverlay = isMobile ? !isInteractive : (showOverlay && !isInteractive);
+
+  // Pre-calculated scales based on container widths
+  // Desktop container: 300px -> 680px, iframe: 1920px
+  // Mobile container: 70px -> 130px, iframe: 390px
 
   return (
     <div className={`relative ${className}`}>
@@ -108,25 +72,19 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
         >
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[70%] h-3 bg-black/30 blur-xl rounded-full" />
 
-          <div className="relative w-[300px] sm:w-[400px] md:w-[520px] lg:w-[600px] xl:w-[680px]">
-            <div className="relative bg-[#1a1a1e] rounded-lg p-[4px] md:p-[6px] shadow-2xl shadow-black/50">
+          <div className="relative w-[220px] sm:w-[280px] md:w-[360px] lg:w-[420px] xl:w-[480px]">
+            <div className="relative bg-[#1a1a1e] rounded-lg p-[3px] md:p-[5px] shadow-2xl shadow-black/50">
               <div className="relative bg-[#0d0d0f] rounded-md overflow-hidden">
-                {/* Desktop screen container - maintains 16:9 aspect ratio */}
-                <div 
-                  ref={desktopContainerRef}
-                  className="relative bg-white overflow-hidden" 
-                  style={{ aspectRatio: '16/9' }}
-                >
-                  {/* Iframe renders at 1920x1080 and scales down to fit container */}
+                {/* Desktop screen */}
+                <div className="relative w-full overflow-hidden bg-[#0d0d0f]" style={{ aspectRatio: '16/9' }}>
+                  {/* Iframe wrapper with percentage-based scaling */}
                   <iframe
                     src={iframeUrl}
-                    className={`absolute top-0 left-0 border-0 origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
-                    style={{ 
-                      width: `${desktopWidth}px`, 
-                      height: `${desktopHeight}px`,
-                      transform: `scale(${desktopScale})`,
-                    }}
+                    className={`absolute top-0 left-0 border-0 origin-top-left w-[1920px] h-[1080px] bg-[#0d0d0f]
+                      scale-[0.115] sm:scale-[0.146] md:scale-[0.188] lg:scale-[0.219] xl:scale-[0.25]
+                      ${isInteractive ? '' : 'pointer-events-none'}`}
                     title="Desktop Preview"
+                    loading="eager"
                   />
                   
                   {/* Overlay for interaction prompt */}
@@ -164,29 +122,26 @@ export default function DeviceMockup({ iframeUrl, className = "" }: DeviceMockup
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[60%] h-2 bg-black/30 blur-lg rounded-full" />
           
           <div 
-            className="relative w-[70px] sm:w-[90px] md:w-[110px] lg:w-[130px]"
+            className="relative w-[50px] sm:w-[62px] md:w-[78px] lg:w-[90px]"
             onMouseEnter={handleInteraction}
             onMouseLeave={handleMouseLeave}
             onTouchStart={handleInteraction}
           >
-            <div className="relative bg-[#1a1a1e] rounded-[14px] sm:rounded-[18px] md:rounded-[22px] p-[2px] md:p-[3px] shadow-2xl shadow-black/50">
-              <div className="relative bg-[#0d0d0f] rounded-[12px] sm:rounded-[16px] md:rounded-[19px] overflow-hidden">
-                <div className="absolute top-1.5 md:top-2 left-1/2 -translate-x-1/2 w-8 sm:w-10 md:w-12 h-2 md:h-3 bg-[#0d0d0f] rounded-full z-20" />
+            <div className="relative bg-[#1a1a1e] rounded-[10px] sm:rounded-[14px] md:rounded-[18px] p-[2px] md:p-[3px] shadow-2xl shadow-black/50">
+              <div className="relative bg-[#0d0d0f] rounded-[8px] sm:rounded-[12px] md:rounded-[15px] overflow-hidden">
+                <div className="absolute top-1 md:top-1.5 left-1/2 -translate-x-1/2 w-6 sm:w-7 md:w-8 h-1 md:h-2 bg-[#0d0d0f] rounded-full z-20" />
+                {/* Mobile screen */}
                 <div 
-                  ref={mobileContainerRef}
-                  className="relative bg-white rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden" 
-                  style={{ aspectRatio: `${mobileWidth}/${mobileHeight}` }}
+                  className="relative w-full overflow-hidden rounded-[6px] sm:rounded-[10px] md:rounded-[12px] bg-[#0d0d0f]" 
+                  style={{ aspectRatio: '390/844' }}
                 >
-                  {/* Mobile iframe - renders at 390x844 and scales down */}
                   <iframe
                     src={iframeUrl}
-                    className={`absolute top-0 left-0 border-0 origin-top-left ${isInteractive ? '' : 'pointer-events-none'}`}
-                    style={{ 
-                      width: `${mobileWidth}px`, 
-                      height: `${mobileHeight}px`,
-                      transform: `scale(${mobileScale})`,
-                    }}
+                    className={`absolute top-0 left-0 border-0 origin-top-left w-[390px] h-[844px] bg-[#0d0d0f]
+                      scale-[0.128] sm:scale-[0.159] md:scale-[0.2] lg:scale-[0.231]
+                      ${isInteractive ? '' : 'pointer-events-none'}`}
                     title="Mobile Preview"
+                    loading="eager"
                   />
                   
                   {/* Overlay for interaction prompt */}

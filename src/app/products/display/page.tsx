@@ -8,7 +8,8 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import PageAnimations from "@/components/animations/PageAnimations";
-import Image from "next/image";
+import ProductHero from "@/components/sections/ProductHero";
+import DeviceMockup from "@/components/ui/DeviceMockup";
 import { useLanguage } from "@/lib/i18n";
 
 const getDisplayPackages = (language: string) => [
@@ -138,76 +139,34 @@ export default function DisplayPage() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div data-gsap="parallax" className="absolute top-1/4 left-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-pink-500/15 rounded-full blur-[120px]" />
-        <div data-gsap="parallax" className="absolute bottom-0 right-1/4 w-48 md:w-[400px] h-48 md:h-[400px] bg-primary-500/20 rounded-full blur-[100px]" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - 3D Model */}
-            <div data-gsap="hero-title" className="order-2 lg:order-1 flex justify-center lg:justify-start">
-              <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute -inset-8 bg-gradient-to-r from-primary-500/15 via-pink-500/10 to-cyan-500/15 rounded-full blur-3xl opacity-60" />
-                
-                {/* 3D Model Container - transparent, no background */}
-                <div className="relative w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] aspect-square">
-                  <iframe
-                    src="https://app.vectary.com/p/4AZGvsuAiwoiyvnpG6dlU3?enableApi=1&hideBg=1"
-                    width="100%"
-                    height="100%"
-                    className="absolute inset-0"
-                    style={{ border: 'none', background: 'transparent' }}
-                    allow="autoplay; fullscreen; xr-spatial-tracking"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Right - Content */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-2 md:mb-4 flex items-center justify-center lg:justify-start gap-1 md:gap-2">
-                <span className="relative h-8 sm:h-10 md:h-12 lg:h-14 w-24 sm:w-32 md:w-40 lg:w-48 translate-y-0.5 md:translate-y-1">
-                  <Image src="/images/logoSarayaJustText.png" alt="Saraya" fill className="object-contain object-center lg:object-left" />
-                </span>
-                <span className="text-gradient -ml-1 md:-ml-2">Display</span>
-              </h1>
-              
-              <p data-gsap="hero-subtitle" className="text-sm md:text-lg text-foreground-muted mb-4 md:mb-6 max-w-lg mx-auto lg:mx-0">
-                {language === "bs" ? "Interaktivni displeji koji transformiraju prostore u iskustva" : "Interactive displays that transform spaces into experiences"}
-              </p>
-
-              <p data-gsap="hero-desc" className="text-xs md:text-base text-foreground-muted mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                {language === "bs" 
-                  ? "Od jednostavnih digitalnih bannera do AI avatara koji razgovaraju s korisnicima — Saraya Display donosi budućnost komunikacije u vaš prostor."
-                  : "From simple digital banners to AI avatars that talk to users — Saraya Display brings the future of communication to your space."}
-              </p>
-
-              {/* Feature highlights */}
-              <div data-gsap="hero-desc" className="grid grid-cols-2 gap-3 mb-6 md:mb-8 max-w-md mx-auto lg:mx-0">
-                {(language === "bs" ? ["4K Ultra HD", "Outdoor & Indoor", "24/7 Podrška", "Domaći proizvod"] : ["4K Ultra HD", "Outdoor & Indoor", "24/7 Support", "Made in BiH"]).map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3 h-3 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-foreground-muted text-xs md:text-sm">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div data-gsap="hero-buttons" className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                <Button variant="primary" size="lg">{language === "bs" ? "Saznajte više" : "Learn more"}<ArrowRight className="ml-2" size={20} /></Button>
-                <Button variant="outline" size="lg" onClick={() => setShowDimensions(true)}>{language === "bs" ? "Dimenzije" : "Dimensions"}</Button>
-              </div>
-            </div>
+      <ProductHero
+        logoSrc="/images/logos/saraya display.png"
+        logoAlt="Saraya Display"
+        titleGradient=""
+        subtitle={language === "bs" ? "Interaktivni displeji koji transformiraju prostore u iskustva" : "Interactive displays that transform spaces into experiences"}
+        description={language === "bs" 
+          ? "Od jednostavnih digitalnih bannera do AI avatara koji razgovaraju s korisnicima — Saraya Display donosi budućnost komunikacije u vaš prostor."
+          : "From simple digital banners to AI avatars that talk to users — Saraya Display brings the future of communication to your space."}
+        features={language === "bs" ? ["4K Ultra HD", "Outdoor & Indoor", "24/7 Podrška", "Domaći proizvod"] : ["4K Ultra HD", "Outdoor & Indoor", "24/7 Support", "Made in BiH"]}
+        primaryButtonText={language === "bs" ? "Saznajte više" : "Learn more"}
+        secondaryButtonText={language === "bs" ? "Dimenzije" : "Dimensions"}
+        secondaryButtonOnClick={() => setShowDimensions(true)}
+        customVisual={
+          <div className="relative w-[240px] sm:w-[280px] md:w-[320px] lg:w-[380px] aspect-square overflow-hidden">
+            <iframe
+              src="https://app.vectary.com/p/4AZGvsuAiwoiyvnpG6dlU3?enableApi=1&hideBg=1"
+              width="100%"
+              height="100%"
+              className="absolute inset-0 scale-110"
+              style={{ border: 'none', background: 'transparent' }}
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              allowFullScreen
+            />
           </div>
-        </div>
-      </section>
+        }
+        glowColor1="bg-pink-500/15"
+        glowColor2="bg-primary-500/20"
+      />
 
 
 

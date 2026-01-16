@@ -1,11 +1,12 @@
 "use client";
 
 import { 
-  Smartphone, Tablet, Monitor, ArrowRight, Check, 
+  Smartphone, Tablet, Monitor, ArrowRight,
   Cloud, Apple, Play, Zap, Shield, RefreshCw, Bell
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import PageAnimations from "@/components/animations/PageAnimations";
+import ProductHero from "@/components/sections/ProductHero";
 import DeviceMockup from "@/components/ui/DeviceMockup";
 import { useLanguage } from "@/lib/i18n";
 
@@ -100,45 +101,29 @@ export default function ApplicationsPage() {
   return (
     <>
       <PageAnimations />
-      
-      {/* Hero Section - Split with App Preview */}
-      <section className="relative pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div data-gsap="parallax" className="absolute top-1/4 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-cyan-500/20 rounded-full blur-[120px]" />
-        <div data-gsap="parallax" className="absolute bottom-0 left-1/4 w-48 md:w-[400px] h-48 md:h-[400px] bg-primary-500/15 rounded-full blur-[100px]" />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - Content */}
-            <div className="text-center lg:text-left">
-              <div data-gsap="hero-title" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 mb-4">
-                <Smartphone className="text-cyan-400" size={14} />
-                <span className="text-cyan-400 text-xs font-medium">iOS • Android • Cross-Platform</span>
-              </div>
-              
-              <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
-                {language === "bs" ? "Aplikacije koje" : "Applications that"} <span className="text-gradient">{language === "bs" ? "korisnici vole" : "users love"}</span>
-              </h1>
-
-              <p data-gsap="hero-desc" className="text-sm md:text-base lg:text-lg text-foreground-muted mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                {language === "bs" 
-                  ? "Od koncepta do App Store-a — razvijamo mobilne aplikacije koje rješavaju stvarne probleme i oduševljavaju korisnike."
-                  : "From concept to App Store — we develop mobile applications that solve real problems and delight users."}
-              </p>
-
-              <div data-gsap="hero-buttons" className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                <Button variant="primary" size="lg">{language === "bs" ? "Započnite projekt" : "Start project"}<ArrowRight className="ml-2" size={20} /></Button>
-                <Button variant="outline" size="lg">{language === "bs" ? "Pogledajte primjere" : "View examples"}</Button>
-              </div>
-            </div>
-
-            {/* Right - Device Mockup */}
-            <div data-gsap="hero-title" className="flex justify-center lg:justify-end">
-              <DeviceMockup iframeUrl="https://hs.sarayasolutions.com/" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProductHero
+        logoSrc="/images/logos/aplikacije.png"
+        logoAlt="Saraya Aplikacije"
+        titleGradient=""
+        subtitle={language === "bs" 
+          ? "Aplikacije koje korisnici vole"
+          : "Applications that users love"}
+        description={language === "bs" 
+          ? "Od koncepta do App Store-a — razvijamo mobilne aplikacije koje rješavaju stvarne probleme i oduševljavaju korisnike."
+          : "From concept to App Store — we develop mobile applications that solve real problems and delight users."}
+        features={[
+          language === "bs" ? "iOS & Android" : "iOS & Android",
+          language === "bs" ? "Native performanse" : "Native performance",
+          language === "bs" ? "Push notifikacije" : "Push notifications",
+          language === "bs" ? "Offline podrška" : "Offline support",
+        ]}
+        primaryButtonText={language === "bs" ? "Započnite projekt" : "Start project"}
+        secondaryButtonText={language === "bs" ? "Pogledajte primjere" : "View examples"}
+        customVisual={<DeviceMockup iframeUrl="https://hs.sarayasolutions.com/" />}
+        glowColor1="bg-cyan-500/15"
+        glowColor2="bg-primary-500/20"
+      />
 
       {/* Platform Comparison */}
       <section className="py-12 md:py-20 bg-background-dark">

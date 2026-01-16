@@ -1,12 +1,13 @@
 "use client";
 
 import { 
-  Globe, Code, ArrowRight, Check, ExternalLink,
-  Clock, Heart, ShoppingCart, Sparkles, Star,
-  Layers, Palette, Shield, Smartphone, Search, BarChart3, Quote
+  Globe, Code, ExternalLink, ArrowRight,
+  Clock, Heart, ShoppingCart, Star,
+  Palette, Shield, Smartphone, Search, BarChart3, Quote
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import PageAnimations from "@/components/animations/PageAnimations";
+import ProductHero from "@/components/sections/ProductHero";
 import DeviceMockup from "@/components/ui/DeviceMockup";
 import { useLanguage } from "@/lib/i18n";
 
@@ -93,37 +94,29 @@ export default function WebSolutionsPage() {
   return (
     <>
       <PageAnimations />
-      
-      {/* Hero Section - Centered with Portfolio Preview */}
-      <section className="relative pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div data-gsap="parallax" className="absolute top-1/4 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary-500/20 rounded-full blur-[120px]" />
-        <div data-gsap="parallax" className="absolute bottom-0 left-1/4 w-48 md:w-[400px] h-48 md:h-[400px] bg-pink-500/15 rounded-full blur-[100px]" />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
-              {language === "bs" ? "Web rješenja koja" : "Web solutions that"} <span className="text-gradient">{language === "bs" ? "donose rezultate" : "deliver results"}</span>
-            </h1>
-
-            <p data-gsap="hero-desc" className="text-sm md:text-base lg:text-lg text-foreground-muted mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
-              {language === "bs" 
-                ? "Gradimo web stranice i aplikacije koje ne samo da izgledaju odlično, već aktivno doprinose rastu vašeg poslovanja."
-                : "We build websites and applications that not only look great, but actively contribute to the growth of your business."}
-            </p>
-
-            <div data-gsap="hero-buttons" className="flex flex-wrap justify-center gap-3 md:gap-4">
-              <Button variant="primary" size="lg">{language === "bs" ? "Započnite projekt" : "Start project"}<ArrowRight className="ml-2" size={20} /></Button>
-              <Button variant="outline" size="lg">{language === "bs" ? "Pogledajte portfolio" : "View portfolio"}</Button>
-            </div>
-          </div>
-
-          {/* Live Portfolio Preview */}
-          <div data-gsap="hero-title" className="flex justify-center">
-            <DeviceMockup iframeUrl="https://pametnoodabrano.com/" />
-          </div>
-        </div>
-      </section>
+      <ProductHero
+        logoSrc="/images/logos/saraya web rijesenja.png"
+        logoAlt="Saraya Web Rješenja"
+        titleGradient=""
+        subtitle={language === "bs" 
+          ? "Web rješenja koja donose rezultate"
+          : "Web solutions that deliver results"}
+        description={language === "bs" 
+          ? "Gradimo web stranice i aplikacije koje ne samo da izgledaju odlično, već aktivno doprinose rastu vašeg poslovanja."
+          : "We build websites and applications that not only look great, but actively contribute to the growth of your business."}
+        features={[
+          language === "bs" ? "Responzivni dizajn" : "Responsive design",
+          language === "bs" ? "SEO optimizacija" : "SEO optimization",
+          language === "bs" ? "Brza isporuka" : "Fast delivery",
+          language === "bs" ? "24/7 Podrška" : "24/7 Support",
+        ]}
+        primaryButtonText={language === "bs" ? "Započnite projekt" : "Start project"}
+        secondaryButtonText={language === "bs" ? "Pogledajte portfolio" : "View portfolio"}
+        customVisual={<DeviceMockup iframeUrl="https://hs.sarayasolutions.com/" />}
+        glowColor1="bg-primary-500/15"
+        glowColor2="bg-pink-500/20"
+      />
 
       {/* Services - Horizontal Scroll Cards */}
       <section className="py-12 md:py-20 bg-background-dark">

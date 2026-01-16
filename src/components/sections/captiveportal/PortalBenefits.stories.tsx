@@ -5,15 +5,16 @@ const meta: Meta<typeof PortalBenefits> = {
   title: "Sections/CaptivePortal/Benefits",
   component: PortalBenefits,
   parameters: {
-    layout: "fullscreen",
+    layout: "centered",
+    backgrounds: {
+      default: "dark",
+    },
   },
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <div className="min-h-[300px] relative bg-background">
-        <div className="container mx-auto px-4 py-8 relative z-10">
-          <Story />
-        </div>
+      <div className="w-[500px]">
+        <Story />
       </div>
     ),
   ],
@@ -29,13 +30,12 @@ type Story = StoryObj<typeof PortalBenefits>;
 /** Lista prednosti hotspot rješenja. */
 export const Default: Story = {
   args: {
-    title: "Prednosti Saraya Hotspot Rješenja:",
+    title: "Prednosti Saraya Hotspot Rješenja",
     benefits: [
-      "Potpuna prilagodba vašem brendu i poslovanju",
+      "Potpuna prilagodba vašem brendu",
       "Skalabilnost — od jedne do stotine lokacija",
-      "Integracija s loyalty programima i CRM sistemima",
+      "Integracija s loyalty programima",
       "Detaljni izvještaji o ponašanju korisnika",
-      "Personalizirani sadržaji bazirani na lokaciji i vremenu",
     ],
   },
 };

@@ -7,6 +7,7 @@ import {
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import PageAnimations from "@/components/animations/PageAnimations";
+import ProductHero from "@/components/sections/ProductHero";
 import DeviceMockup from "@/components/ui/DeviceMockup";
 import { useLanguage } from "@/lib/i18n";
 
@@ -45,69 +46,23 @@ export default function GamesPage() {
     <>
       <PageAnimations />
       
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div data-gsap="parallax" className="absolute top-1/4 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary-500/20 rounded-full blur-[120px]" />
-        <div data-gsap="parallax" className="absolute bottom-0 left-1/4 w-48 md:w-[400px] h-48 md:h-[400px] bg-accent-pink/15 rounded-full blur-[100px]" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - Device Mockup */}
-            <div data-gsap="hero-title" className="order-2 lg:order-1 flex justify-center lg:justify-start">
-              <DeviceMockup iframeUrl="https://hs.sarayasolutions.com/" />
-            </div>
-
-            {/* Right - Content */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h1 data-gsap="hero-title" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
-                {language === "bs" ? "Gamifikacija koja" : "Gamification that"} <span className="text-gradient">{language === "bs" ? "angažira" : "engages"}</span>
-              </h1>
-
-              <p data-gsap="hero-desc" className="text-sm md:text-base lg:text-lg text-foreground-muted mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                {language === "bs" 
-                  ? "Pretvaramo pasivne posjetitelje u aktivne sudionike kroz igre koje zabavljaju, educiraju i grade lojalnost prema vašem brendu."
-                  : "We turn passive visitors into active participants through games that entertain, educate and build loyalty to your brand."}
-              </p>
-
-              {/* Feature highlights */}
-              <div data-gsap="hero-desc" className="grid grid-cols-2 gap-3 mb-6 md:mb-8 max-w-md mx-auto lg:mx-0">
-                {(language === "bs" ? ["Gamifikacija", "VR/AR iskustva", "Kvizovi i nagrade", "Brend engagement"] : ["Gamification", "VR/AR experiences", "Quizzes & rewards", "Brand engagement"]).map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-accent-pink/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="text-accent-pink" size={12} />
-                    </div>
-                    <span className="text-foreground-muted text-xs md:text-sm">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div data-gsap="hero-buttons" className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                <Button variant="primary" size="lg">{language === "bs" ? "Započnite projekt" : "Start project"}<ArrowRight className="ml-2" size={20} /></Button>
-                <Button variant="outline" size="lg">{language === "bs" ? "Pogledajte primjere" : "View examples"}</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Bar */}
-      <section data-gsap="benefits-bar" className="py-6 md:py-10 bg-accent-pink/10 border-y border-accent-pink/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-6">
-            {(language === "bs" ? ["Gamifikacija", "VR/AR iskustva", "Kvizovi i nagradne igre", "Brend engagement", "Analitika igrača"] : ["Gamification", "VR/AR experiences", "Quizzes & prize games", "Brand engagement", "Player analytics"]).map((benefit, index) => (
-              <div key={index} data-gsap="benefits-item" className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded-full bg-accent-pink/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 text-accent-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-foreground-muted text-xs md:text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProductHero
+        logoSrc="/images/logos/saraya igre.png"
+        logoAlt="Saraya Igre"
+        titleGradient=""
+        subtitle={language === "bs" ? "Gamifikacija koja angažira" : "Gamification that engages"}
+        description={language === "bs" 
+          ? "Pretvaramo pasivne posjetitelje u aktivne sudionike kroz igre koje zabavljaju, educiraju i grade lojalnost prema vašem brendu."
+          : "We turn passive visitors into active participants through games that entertain, educate and build loyalty to your brand."}
+        features={language === "bs" 
+          ? ["Gamifikacija", "VR/AR iskustva", "Kvizovi i nagrade", "Brend engagement"] 
+          : ["Gamification", "VR/AR experiences", "Quizzes & rewards", "Brand engagement"]}
+        primaryButtonText={language === "bs" ? "Započnite projekt" : "Start project"}
+        secondaryButtonText={language === "bs" ? "Pogledajte primjere" : "View examples"}
+        customVisual={<DeviceMockup iframeUrl="https://hs.sarayasolutions.com/" />}
+        glowColor1="bg-accent-pink/15"
+        glowColor2="bg-primary-500/20"
+      />
 
       {/* Game Types */}
       <section className="py-12 md:py-24 relative">
