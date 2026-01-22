@@ -10,6 +10,7 @@ import {
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import TechIllustration from "@/components/ui/TechIllustration";
+import PageAnimations from "@/components/animations/PageAnimations";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 
@@ -101,6 +102,7 @@ export default function TechnologyPage() {
   const integrations = t.technology.integrationsList;
   return (
     <>
+      <PageAnimations />
       {/* Hero Section */}
       <section className="relative pt-20 pb-8 md:pt-32 md:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient" />
@@ -437,15 +439,6 @@ export default function TechnologyPage() {
               </motion.div>
             ))}
           </div>
-
-          <div className="text-center">
-            <Link href="/services/web-solutions">
-              <Button variant="outline">
-                {t.technology.webCta}
-                <ArrowRight className="ml-2" size={18} />
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -494,15 +487,6 @@ export default function TechnologyPage() {
                 </div>
               </motion.div>
             ))}
-          </div>
-
-          <div className="text-center">
-            <Link href="/services/games">
-              <Button variant="primary">
-                {t.technology.gameCta}
-                <ArrowRight className="ml-2" size={18} />
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
@@ -553,15 +537,6 @@ export default function TechnologyPage() {
                 <p className="text-foreground-muted text-sm">{tech.description}</p>
               </motion.div>
             ))}
-          </div>
-
-          <div className="text-center">
-            <Link href="/services/applications">
-              <Button variant="outline">
-                {t.technology.mobileCta}
-                <ArrowRight className="ml-2" size={18} />
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

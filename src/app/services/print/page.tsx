@@ -294,8 +294,7 @@ export default function PrintPage() {
       <section className="py-12 md:py-24 bg-background-dark relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-accent-green/10 via-transparent to-cyan-500/10" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div data-gsap="cta" className="text-center max-w-2xl mx-auto">
+        <div data-gsap="cta" className="text-center relative z-10">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-green to-cyan-500 flex items-center justify-center mx-auto mb-6">
               <Printer className="text-white" size={32} />
             </div>
@@ -312,7 +311,6 @@ export default function PrintPage() {
               <ArrowRight className="ml-2" size={20} />
             </Button>
           </div>
-        </div>
       </section>
     </>
   );

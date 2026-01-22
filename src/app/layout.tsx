@@ -19,12 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark overflow-x-hidden">
-      <body className={`${inter.className} bg-background text-foreground antialiased overflow-x-hidden w-full max-w-[100vw]`}>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} bg-background text-foreground antialiased`}>
         <LanguageProvider>
-          <div className="relative w-full overflow-x-hidden">
+          <div className="relative w-full">
             <Header />
-            <main className="overflow-x-hidden w-full">{children}</main>
+            <main className="w-full">{children}</main>
             <Footer />
           </div>
         </LanguageProvider>

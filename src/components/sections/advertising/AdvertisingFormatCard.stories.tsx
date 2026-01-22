@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import AdvertisingFormatCard from "./AdvertisingFormatCard";
 
 const meta: Meta<typeof AdvertisingFormatCard> = {
-  title: "Sections/Advertising/AdvertisingFormatCard",
+  title: "Pages/Connect/Advertising/AdvertisingFormatCard",
   component: AdvertisingFormatCard,
   parameters: {
     layout: "centered",

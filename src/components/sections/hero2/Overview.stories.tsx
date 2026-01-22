@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import Hero2Content, { Hero2ContentProps } from "./Hero2Content";
 import Hero2Visual, { Hero2VisualProps } from "./Hero2Visual";
 
@@ -59,7 +59,7 @@ const Hero2Overview = ({
 );
 
 const meta: Meta<typeof Hero2Overview> = {
-  title: "Sections/Hero2/Overview",
+  title: "Pages/Home/Hero2/Overview",
   component: Hero2Overview,
   parameters: {
     layout: "fullscreen",

@@ -18,6 +18,7 @@ export const translations = {
     // Products
     products: {
       sarayaConnect: "Saraya Connect",
+      sarayaHotspot: "Saraya Hotspot",
       display: "Display",
     },
     // Services
@@ -407,6 +408,7 @@ export const translations = {
     // Products
     products: {
       sarayaConnect: "Saraya Connect",
+      sarayaHotspot: "Saraya Hotspot",
       display: "Display",
     },
     // Services

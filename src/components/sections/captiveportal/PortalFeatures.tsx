@@ -1,7 +1,6 @@
 "use client";
 
 import { Megaphone, ShoppingBag, BarChart3, LucideIcon } from "lucide-react";
-import Card from "../../ui/Card";
 
 export interface FeatureItem {
   title: string;
@@ -42,19 +41,27 @@ export default function PortalFeatures({
   features = defaultFeatures,
 }: PortalFeaturesProps) {
   return (
-    <div className="grid md:grid-cols-3 gap-6 mb-16">
+    <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
       {features.map((feature) => {
         const Icon = iconMap[feature.icon] || Megaphone;
+        const colorClasses = 
+          feature.icon === "megaphone" 
+            ? { border: "border-primary-500/20 hover:border-primary-500/40", bg: "bg-primary-500/20", icon: "text-primary-400" }
+            : feature.icon === "shopping"
+            ? { border: "border-accent-green/20 hover:border-accent-green/40", bg: "bg-accent-green/20", icon: "text-accent-green" }
+            : { border: "border-cyan-500/20 hover:border-cyan-500/40", bg: "bg-cyan-500/20", icon: "text-cyan-400" };
+        
         return (
-          <Card key={feature.title} glow="purple">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-primary-500/20 flex items-center justify-center mb-4">
-                <Icon className="text-primary-400" size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-foreground-muted text-sm">{feature.description}</p>
+          <div 
+            key={feature.title} 
+            className={`p-6 rounded-2xl bg-background-card border transition-all hover:scale-[1.02] ${colorClasses.border}`}
+          >
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colorClasses.bg}`}>
+              <Icon className={colorClasses.icon} size={24} />
             </div>
-          </Card>
+            <h3 className="text-white font-bold mb-2">{feature.title}</h3>
+            <p className="text-foreground-muted text-sm">{feature.description}</p>
+          </div>
         );
       })}
     </div>

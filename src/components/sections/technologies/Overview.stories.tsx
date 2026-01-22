@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import TechHeader, { TechHeaderProps } from "./TechHeader";
 import TechCards, { TechCardsProps, TechItem } from "./TechCards";
 
@@ -34,7 +34,7 @@ const TechOverview = ({
 );
 
 const meta: Meta<typeof TechOverview> = {
-  title: "Sections/Technologies/Overview",
+  title: "Pages/Home/Technologies/Overview",
   component: TechOverview,
   parameters: {
     layout: "fullscreen",

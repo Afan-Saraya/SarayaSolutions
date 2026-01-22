@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import PortalBenefits from "./PortalBenefits";
 
 const meta: Meta<typeof PortalBenefits> = {
-  title: "Sections/CaptivePortal/Benefits",
+  title: "Pages/Connect/CaptivePortal/Benefits",
   component: PortalBenefits,
   parameters: {
     layout: "centered",

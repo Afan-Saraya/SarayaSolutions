@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import AdvertisingHeader, { AdvertisingHeaderProps } from "./AdvertisingHeader";
 import AdvertisingStats, { AdvertisingStatsProps, StatItem } from "./AdvertisingStats";
 import AdvertisingFormats, { AdvertisingFormatsProps, FormatItem } from "./AdvertisingFormats";
@@ -56,7 +56,7 @@ const AdvertisingOverview = ({
 );
 
 const meta: Meta<typeof AdvertisingOverview> = {
-  title: "Sections/Advertising/Overview",
+  title: "Pages/Connect/Advertising/Overview",
   component: AdvertisingOverview,
   parameters: {
     layout: "fullscreen",

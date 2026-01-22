@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import PartnersHeader from "./PartnersHeader";
 
 const meta: Meta<typeof PartnersHeader> = {
@@ -8,33 +8,25 @@ const meta: Meta<typeof PartnersHeader> = {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
-  decorators: [
-    (Story) => (
-      <div className="min-h-[250px] relative overflow-hidden bg-background-dark">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary-500/5 rounded-full blur-[100px]" />
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
-  argTypes: {
-    badge: { control: "text" },
-    titleStart: { control: "text" },
-    titleGradient: { control: "text" },
-    description: { control: "text" },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof PartnersHeader>;
 
-/** Header sekcije sa badge-om, naslovom i opisom. */
-export const Default: Story = {
+export const Bosnian: Story = {
   args: {
     badge: "Partneri",
-    titleStart: "Kompanije s kojima",
-    titleGradient: "sarađujemo",
-    description: "Ponosni smo na saradnju s vodećim kompanijama u regiji",
+    title: "Pouzdanje vodećih",
+    titleHighlight: "kompanija",
+    description: "Sarađujemo sa najpoznatijim brendovima u regiji",
+  },
+};
+
+export const English: Story = {
+  args: {
+    badge: "Partners",
+    title: "Trusted by leading",
+    titleHighlight: "companies",
+    description: "We work with the most recognized brands in the region",
   },
 };

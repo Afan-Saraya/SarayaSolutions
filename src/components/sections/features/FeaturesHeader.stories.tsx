@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import FeaturesHeader from "./FeaturesHeader";
 
 const meta: Meta<typeof FeaturesHeader> = {
-  title: "Sections/Features/Header",
+  title: "Pages/Home/Features/Header",
   component: FeaturesHeader,
   parameters: {
     layout: "fullscreen",

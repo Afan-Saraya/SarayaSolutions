@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import FeaturesServices from "./FeaturesServices";
 
 const meta: Meta<typeof FeaturesServices> = {
-  title: "Sections/Features/Services",
+  title: "Pages/Home/Features/Services",
   component: FeaturesServices,
   parameters: {
     layout: "fullscreen",

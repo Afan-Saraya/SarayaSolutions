@@ -18,6 +18,13 @@ const preview: Preview = {
         { name: 'light', value: '#ffffff' },
       ],
     },
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 800,
+      },
+    },
+    layout: 'fullscreen',
     a11y: {
       test: 'todo'
     }
@@ -25,7 +32,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <LanguageProvider>
-        <Story />
+        <div style={{ backgroundColor: '#0a0a0f', minHeight: '100vh' }}>
+          <Story />
+        </div>
       </LanguageProvider>
     ),
   ],

@@ -1,22 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Badge from "@/components/ui/Badge";
-import { RefreshCw } from "lucide-react";
+import type { Meta, StoryObj } from "@storybook/react";
 import PortalHeader, { PortalHeaderProps } from "./PortalHeader";
 import PortalFeatures, { PortalFeaturesProps, FeatureItem } from "./PortalFeatures";
 import PortalBenefits, { PortalBenefitsProps } from "./PortalBenefits";
 import PortalConnectPages, { PortalConnectPagesProps, ConnectPageItem } from "./PortalConnectPages";
 
-type PortalOverviewProps = PortalHeaderProps & PortalFeaturesProps & PortalBenefitsProps & {
-  badge?: string;
-  connectTitle?: string;
-  connectDescription?: string;
-  connectPages?: ConnectPageItem[];
-};
+type PortalOverviewProps = PortalHeaderProps & 
+  PortalFeaturesProps & 
+  PortalBenefitsProps & {
+    connectTitle: string;
+    connectDescription: string;
+    connectPages: ConnectPageItem[];
+  };
 
 const PortalOverview = ({
-  // Badge
-  badge,
   // Header props
+  badge,
   titleStart,
   titleGradient,
   description,
@@ -30,19 +28,11 @@ const PortalOverview = ({
   connectDescription,
   connectPages,
 }: PortalOverviewProps) => (
-  <section className="py-24 relative bg-background">
-    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-500/10 rounded-full blur-[120px]" />
+  <section className="py-12 md:py-24 relative overflow-hidden">
+    <div className="absolute top-0 left-0 w-48 md:w-[400px] h-48 md:h-[400px] bg-primary-500/10 rounded-full blur-[120px]" />
     <div className="container mx-auto px-4 relative z-10">
-      {badge && (
-        <div className="text-center mb-6">
-          <Badge variant="primary">
-            <RefreshCw size={14} className="mr-2" />
-            {badge}
-          </Badge>
-        </div>
-      )}
-
       <PortalHeader
+        badge={badge}
         titleStart={titleStart}
         titleGradient={titleGradient}
         description={description}
@@ -52,10 +42,10 @@ const PortalOverview = ({
 
       <div className="grid md:grid-cols-2 gap-6">
         <PortalBenefits title={title} benefits={benefits} />
-        <PortalConnectPages
-          title={connectTitle}
+        <PortalConnectPages 
+          title={connectTitle} 
           description={connectDescription}
-          pages={connectPages}
+          pages={connectPages} 
         />
       </div>
     </div>
@@ -63,16 +53,24 @@ const PortalOverview = ({
 );
 
 const meta: Meta<typeof PortalOverview> = {
-  title: "Sections/CaptivePortal/Overview",
+  title: "Pages/Connect/CaptivePortal/Overview",
   component: PortalOverview,
   parameters: {
     layout: "fullscreen",
+    backgrounds: {
+      default: "dark",
+    },
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 1000,
+      },
+    },
   },
   tags: ["autodocs"],
   argTypes: {
-    // Badge
-    badge: { control: "text", table: { category: "Badge" } },
     // Header
+    badge: { control: "text", table: { category: "Header" } },
     titleStart: { control: "text", table: { category: "Header" } },
     titleGradient: { control: "text", table: { category: "Header" } },
     description: { control: "text", table: { category: "Header" } },
@@ -93,18 +91,18 @@ type Story = StoryObj<typeof PortalOverview>;
 
 const defaultFeatures: FeatureItem[] = [
   {
-    title: "Brendirani Captive Portal",
-    description: "Potpuno prilagođena stranica za prijavu koja predstavlja vaš brand i komunicira s korisnicima.",
+    title: "Brendirani Portal",
+    description: "Potpuno prilagođena stranica za prijavu koja predstavlja vaš brand.",
     icon: "megaphone",
   },
   {
     title: "Marketing & Promocije",
-    description: "Prikazujte ponude, najave i promocije korisnicima prilikom spajanja na Wi-Fi.",
+    description: "Prikazujte ponude i promocije korisnicima prilikom spajanja.",
     icon: "shopping",
   },
   {
     title: "Analitika Ponašanja",
-    description: "Pratite kako se korisnici kreću, koliko ostaju i što ih zanima — podaci za bolje odluke.",
+    description: "Pratite kako se korisnici kreću i što ih zanima.",
     icon: "chart",
   },
 ];
@@ -117,17 +115,28 @@ const defaultBenefits = [
 ];
 
 const defaultConnectPages: ConnectPageItem[] = [
-  { title: "Rewards Center", subtitle: "Loyalty program", color: "purple" },
-  { title: "Pametno Odabrano", subtitle: "AI preporuke", color: "green" },
-  { title: "Explore Sarajevo", subtitle: "Vodič kroz grad", color: "cyan" },
+  {
+    title: "Rewards Center",
+    subtitle: "Loyalty program",
+    color: "purple",
+  },
+  {
+    title: "Pametno Odabrano",
+    subtitle: "AI preporuke",
+    color: "green",
+  },
+  {
+    title: "Explore Sarajevo",
+    subtitle: "Vodič kroz grad",
+    color: "cyan",
+  },
 ];
 
 /** Kompletna Captive Portal sekcija sa svim kontrolama. */
 export const Default: Story = {
   args: {
-    // Badge
-    badge: "Portal Rješenja",
     // Header
+    badge: "Portal Rješenja",
     titleStart: "Captivni",
     titleGradient: "Portal",
     description: "Prilagodljivi portali koji omogućavaju potpunu kontrolu nad sadržajem.",

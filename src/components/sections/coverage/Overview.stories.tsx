@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import CoverageHeader, { CoverageHeaderProps } from "./CoverageHeader";
 import CoverageZones, { CoverageZonesProps, ZoneItem } from "./CoverageZones";
 import CoverageSummary, { CoverageSummaryProps, StatItem } from "./CoverageSummary";
@@ -39,7 +39,7 @@ const CoverageOverview = ({
 );
 
 const meta: Meta<typeof CoverageOverview> = {
-  title: "Sections/Coverage/Overview",
+  title: "Pages/Connect/Coverage/Overview",
   component: CoverageOverview,
   parameters: {
     layout: "fullscreen",

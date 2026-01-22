@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import TechHeader from "./TechHeader";
 
 const meta: Meta<typeof TechHeader> = {
@@ -8,31 +8,25 @@ const meta: Meta<typeof TechHeader> = {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
-  decorators: [
-    (Story) => (
-      <div className="min-h-[200px] relative overflow-hidden bg-background-dark">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[100px]" />
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
-  argTypes: {
-    badge: { control: "text" },
-    titleStart: { control: "text" },
-    titleGradient: { control: "text" },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof TechHeader>;
 
-/** Header sekcije sa badge-om i naslovom. */
-export const Default: Story = {
+export const Bosnian: Story = {
   args: {
     badge: "Tehnologije",
     titleStart: "Tehnologije koje pokreću",
-    titleGradient: "Vaš uspjeh",
+    titleHighlight: "Saraya ekosistem",
+    description: "Koristimo najnovije tehnologije za kreiranje pouzdanih i skalabilnih rješenja",
+  },
+};
+
+export const English: Story = {
+  args: {
+    badge: "Technologies",
+    titleStart: "Technologies that power",
+    titleHighlight: "Saraya ecosystem",
+    description: "We use the latest technologies to create reliable and scalable solutions",
   },
 };

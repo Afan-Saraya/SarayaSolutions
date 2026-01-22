@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import PortalFeatures from "./PortalFeatures";
+import type { Meta, StoryObj } from "@storybook/react";
+import PortalFeatures, { FeatureItem } from "./PortalFeatures";
 
 const meta: Meta<typeof PortalFeatures> = {
   title: "Sections/CaptivePortal/Features",
@@ -8,43 +8,57 @@ const meta: Meta<typeof PortalFeatures> = {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
-  decorators: [
-    (Story) => (
-      <div className="min-h-[400px] relative bg-background">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-500/10 rounded-full blur-[120px]" />
-        <div className="container mx-auto px-4 py-8 relative z-10">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
-  argTypes: {
-    features: { control: "object" },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof PortalFeatures>;
 
-/** Kartice značajki captive portala. */
-export const Default: Story = {
+const bosnianFeatures: FeatureItem[] = [
+  {
+    title: "Brendirani Captive Portal",
+    description: "Potpuno prilagođena stranica za prijavu koja predstavlja vaš brand i komunicira s korisnicima.",
+    icon: "megaphone",
+  },
+  {
+    title: "Marketing & Promocije",
+    description: "Prikazujte ponude, najave i promocije korisnicima prilikom spajanja na Wi-Fi.",
+    icon: "shopping",
+  },
+  {
+    title: "Analitika Ponašanja",
+    description: "Pratite kako se korisnici kreću, koliko ostaju i što ih zanima — podaci za bolje odluke.",
+    icon: "chart",
+  },
+];
+
+const englishFeatures: FeatureItem[] = [
+  {
+    title: "Branded Captive Portal",
+    description: "Fully customized login page that represents your brand and communicates with users.",
+    icon: "megaphone",
+  },
+  {
+    title: "Marketing & Promotions",
+    description: "Display offers, announcements and promotions to users when connecting to Wi-Fi.",
+    icon: "shopping",
+  },
+  {
+    title: "Behavior Analytics",
+    description: "Track how users move, how long they stay and what interests them — data for better decisions.",
+    icon: "chart",
+  },
+];
+
+export const Default: Story = {};
+
+export const Bosnian: Story = {
   args: {
-    features: [
-      {
-        title: "Brendirani Captive Portal",
-        description: "Potpuno prilagođena stranica za prijavu koja predstavlja vaš brand i komunicira s korisnicima.",
-        icon: "megaphone",
-      },
-      {
-        title: "Marketing & Promocije",
-        description: "Prikazujte ponude, najave i promocije korisnicima prilikom spajanja na Wi-Fi.",
-        icon: "shopping",
-      },
-      {
-        title: "Analitika Ponašanja",
-        description: "Pratite kako se korisnici kreću, koliko ostaju i što ih zanima — podaci za bolje odluke.",
-        icon: "chart",
-      },
-    ],
+    features: bosnianFeatures,
+  },
+};
+
+export const English: Story = {
+  args: {
+    features: englishFeatures,
   },
 };

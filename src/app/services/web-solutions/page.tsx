@@ -296,8 +296,7 @@ export default function WebSolutionsPage() {
       <section className="py-12 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 via-transparent to-pink-500/10" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div data-gsap="cta" className="max-w-3xl mx-auto text-center">
+        <div data-gsap="cta" className="text-center relative z-10">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-6">
               {language === "bs" ? "Spremni za" : "Ready for"} <span className="text-gradient">{language === "bs" ? "digitalni uspjeh" : "digital success"}</span>?
             </h2>
@@ -313,7 +312,6 @@ export default function WebSolutionsPage() {
               </Button>
             </div>
           </div>
-        </div>
       </section>
     </>
   );

@@ -1,6 +1,11 @@
 "use client";
 
+import Badge from "@/components/ui/Badge";
+import { RefreshCw } from "lucide-react";
+
 export interface PortalHeaderProps {
+  /** Badge text */
+  badge?: string;
   /** Title (first part) */
   titleStart?: string;
   /** Title (gradient part) */
@@ -10,16 +15,21 @@ export interface PortalHeaderProps {
 }
 
 export default function PortalHeader({
-  titleStart = "Captivni Portal /",
-  titleGradient = "Hotspot Stranica",
-  description = "Prilagodljivi captivni portali koji omogućavaju potpunu kontrolu nad sadržajem.",
+  badge = "Portal Rješenja",
+  titleStart = "Captivni",
+  titleGradient = "Portal",
+  description = "Prilagodljivi portali koji omogućavaju potpunu kontrolu nad sadržajem.",
 }: PortalHeaderProps) {
   return (
-    <div className="text-center mb-16">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+    <div className="text-center mb-8 md:mb-12">
+      <Badge variant="primary" className="mb-3">
+        <RefreshCw size={14} className="mr-2" />
+        {badge}
+      </Badge>
+      <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
         {titleStart} <span className="text-gradient">{titleGradient}</span>
       </h2>
-      <p className="text-foreground-muted max-w-3xl mx-auto">
+      <p className="text-foreground-muted text-xs md:text-base max-w-2xl mx-auto">
         {description}
       </p>
     </div>

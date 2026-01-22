@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import FeaturesHeader, { FeaturesHeaderProps } from "./FeaturesHeader";
 import FeaturesProducts, { FeaturesProductsProps, ProductItem } from "./FeaturesProducts";
 import FeaturesServices, { FeaturesServicesProps, ServiceItem } from "./FeaturesServices";
@@ -41,7 +41,7 @@ const FeaturesOverview = ({
 );
 
 const meta: Meta<typeof FeaturesOverview> = {
-  title: "Sections/Features/Overview",
+  title: "Pages/Home/Features/Overview",
   component: FeaturesOverview,
   parameters: {
     layout: "fullscreen",

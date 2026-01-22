@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import Hero2Content from "./Hero2Content";
 
 const meta: Meta<typeof Hero2Content> = {
-  title: "Sections/Hero2/Content",
+  title: "Pages/Home/Hero2/Content",
   component: Hero2Content,
   parameters: {
     layout: "fullscreen",

@@ -15,8 +15,7 @@ export default function CTA() {
       <div data-gsap="parallax" className="absolute top-0 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-primary-500/20 rounded-full blur-3xl" />
       <div data-gsap="parallax" className="absolute bottom-0 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-pink-500/20 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div data-gsap="cta-content" className="max-w-3xl mx-auto text-center">
+      <div data-gsap="cta-content" className="text-center relative z-10">
           <div className="inline-block mb-4 md:mb-6">
             <Sparkles className="text-primary-400" size={32} />
           </div>
@@ -42,7 +41,6 @@ export default function CTA() {
             </Link>
           </div>
         </div>
-      </div>
     </section>
   );
 }

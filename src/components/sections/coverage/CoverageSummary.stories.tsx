@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import CoverageSummary from "./CoverageSummary";
 
 const meta: Meta<typeof CoverageSummary> = {
-  title: "Sections/Coverage/Summary",
+  title: "Pages/Connect/Coverage/Summary",
   component: CoverageSummary,
   parameters: {
     layout: "fullscreen",

@@ -1,33 +1,51 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import AdvertisingStatCard from "./AdvertisingStatCard";
+import { Users, Eye, TrendingUp, Target } from "lucide-react";
 
 const meta: Meta<typeof AdvertisingStatCard> = {
-  title: "Sections/Advertising/AdvertisingStatCard",
+  title: "Sections/Advertising/StatCard",
   component: AdvertisingStatCard,
   parameters: {
     layout: "centered",
-    backgrounds: { default: "dark" },
   },
   tags: ["autodocs"],
-  argTypes: {
-    value: { control: "text", description: "Vrijednost statistike" },
-    label: { control: "text", description: "Opis statistike" },
-  },
-  decorators: [
-    (Story) => (
-      <div className="bg-background-dark p-8">
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof AdvertisingStatCard>;
 
-export const Default: Story = {
+export const UsersCard: Story = {
   args: {
-    value: "20,000+",
-    label: "Dnevnih korisnika",
+    icon: Users,
+    value: "20K+",
+    label: "Daily users",
+    color: "green",
+  },
+};
+
+export const Impressions: Story = {
+  args: {
+    icon: Eye,
+    value: "100K+",
+    label: "Monthly impressions",
+    color: "purple",
+  },
+};
+
+export const Growth: Story = {
+  args: {
+    icon: TrendingUp,
+    value: "+35%",
+    label: "Average growth",
+    color: "cyan",
+  },
+};
+
+export const Targeting: Story = {
+  args: {
+    icon: Target,
+    value: "95%",
+    label: "Targeting accuracy",
+    color: "pink",
   },
 };

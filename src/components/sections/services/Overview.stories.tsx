@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import ServicesHeader, { ServicesHeaderProps } from "./ServicesHeader";
 import ServicesCards, { ServicesCardsProps, ServiceCardItem } from "./ServicesCards";
 
@@ -18,7 +18,7 @@ const ServicesOverview = ({
 );
 
 const meta: Meta<typeof ServicesOverview> = {
-  title: "Sections/Services/Overview",
+  title: "Pages/Home/Services/Overview",
   component: ServicesOverview,
   parameters: {
     layout: "fullscreen",

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import WhyChooseContent, { WhyChooseContentProps } from "./WhyChooseContent";
 import WhyChooseVisual, { WhyChooseVisualProps, StatItem } from "./WhyChooseVisual";
 
@@ -58,7 +58,7 @@ const WhyChooseOverview = ({
 );
 
 const meta: Meta<typeof WhyChooseOverview> = {
-  title: "Sections/WhyChoose/Overview",
+  title: "Pages/Connect/WhyChoose/Overview",
   component: WhyChooseOverview,
   parameters: {
     layout: "fullscreen",

@@ -275,8 +275,7 @@ export default function ApplicationsPage() {
       <section className="py-12 md:py-24 bg-background-dark relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-primary-500/10" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div data-gsap="cta" className="text-center max-w-2xl mx-auto">
+        <div data-gsap="cta" className="text-center relative z-10">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4">
               {language === "bs" ? "Imate ideju za" : "Have an idea for an"} <span className="text-gradient">{language === "bs" ? "aplikaciju" : "app"}</span>?
             </h2>
@@ -290,7 +289,6 @@ export default function ApplicationsPage() {
               <ArrowRight className="ml-2" size={20} />
             </Button>
           </div>
-        </div>
       </section>
     </>
   );

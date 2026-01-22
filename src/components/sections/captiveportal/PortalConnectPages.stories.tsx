@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import PortalConnectPages, { ConnectPageItem } from "./PortalConnectPages";
 
 const meta: Meta<typeof PortalConnectPages> = {
-  title: "Sections/CaptivePortal/PortalConnectPages",
+  title: "Pages/Connect/CaptivePortal/PortalConnectPages",
   component: PortalConnectPages,
   parameters: {
     layout: "centered",
@@ -29,9 +29,21 @@ export default meta;
 type Story = StoryObj<typeof PortalConnectPages>;
 
 const defaultPages: ConnectPageItem[] = [
-  { title: "Rewards Center", subtitle: "Loyalty program", color: "purple" },
-  { title: "Pametno Odabrano", subtitle: "AI preporuke", color: "green" },
-  { title: "Explore Sarajevo", subtitle: "Vodič kroz grad", color: "cyan" },
+  {
+    title: "Rewards Center",
+    subtitle: "Loyalty program",
+    color: "purple",
+  },
+  {
+    title: "Pametno Odabrano",
+    subtitle: "AI preporuke",
+    color: "green",
+  },
+  {
+    title: "Explore Sarajevo",
+    subtitle: "Vodič kroz grad",
+    color: "cyan",
+  },
 ];
 
 export const Default: Story = {
@@ -47,8 +59,8 @@ export const CustomPages: Story = {
     title: "Dostupne Stranice",
     description: "Pristupite ekskluzivnom sadržaju:",
     pages: [
-      { title: "Specijalne Ponude", subtitle: "Popusti i akcije", color: "green" },
-      { title: "Lokalni Vodič", subtitle: "Restorani i kafići", color: "cyan" },
+      { title: "VIP Zona", subtitle: "Premium sadržaj", color: "purple" },
+      { title: "Lokalni Vodič", subtitle: "Preporuke", color: "green" },
     ],
   },
 };

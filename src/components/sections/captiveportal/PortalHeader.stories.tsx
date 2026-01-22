@@ -1,11 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import PortalHeader from "./PortalHeader";
 
 const meta: Meta<typeof PortalHeader> = {
-  title: "Sections/CaptivePortal/Header",
+  title: "Pages/Connect/CaptivePortal/Header",
   component: PortalHeader,
   parameters: {
     layout: "fullscreen",
+    backgrounds: {
+      default: "dark",
+    },
   },
   tags: ["autodocs"],
   decorators: [
@@ -19,6 +22,7 @@ const meta: Meta<typeof PortalHeader> = {
     ),
   ],
   argTypes: {
+    badge: { control: "text" },
     titleStart: { control: "text" },
     titleGradient: { control: "text" },
     description: { control: "text" },
@@ -28,11 +32,12 @@ const meta: Meta<typeof PortalHeader> = {
 export default meta;
 type Story = StoryObj<typeof PortalHeader>;
 
-/** Header sekcije sa naslovom i opisom. */
+/** Header sekcije sa badge-om, naslovom i opisom. */
 export const Default: Story = {
   args: {
-    titleStart: "Captivni Portal /",
-    titleGradient: "Hotspot Stranica",
-    description: "Prilagodljivi captivni portali koji omogućavaju potpunu kontrolu nad sadržajem.",
+    badge: "Portal Rješenja",
+    titleStart: "Captivni",
+    titleGradient: "Portal",
+    description: "Prilagodljivi portali koji omogućavaju potpunu kontrolu nad sadržajem.",
   },
 };

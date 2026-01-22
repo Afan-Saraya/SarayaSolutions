@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import PartnersHeader, { PartnersHeaderProps } from "./PartnersHeader";
 import PartnersLogos, { PartnersLogosProps, PartnerItem } from "./PartnersLogos";
 
@@ -38,7 +38,7 @@ const PartnersOverview = ({
 );
 
 const meta: Meta<typeof PartnersOverview> = {
-  title: "Sections/Partners/Overview",
+  title: "Pages/Home/Partners/Overview",
   component: PartnersOverview,
   parameters: {
     layout: "fullscreen",

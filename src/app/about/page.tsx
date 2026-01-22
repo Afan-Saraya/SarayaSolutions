@@ -9,7 +9,6 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PageAnimations from "@/components/animations/PageAnimations";
-import DomaciBadge from "@/components/ui/DomaciBadge";
 import Partners from "@/components/sections/Partners";
 import { useLanguage } from "@/lib/i18n";
 
@@ -86,31 +85,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Benefits Bar */}
-      <section data-gsap="benefits-bar" className="py-6 md:py-10 bg-primary-500/10 border-y border-primary-500/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-6">
-            <DomaciBadge variant="large" />
-            {(language === "bs" 
-              ? ["10+ godina iskustva", "Inovativna rješenja", "Podrška 24/7", "Pouzdani partneri"]
-              : ["10+ years of experience", "Innovative solutions", "24/7 Support", "Reliable partners"]
-            ).map((benefit, index) => (
-              <div
-                key={index}
-                data-gsap="benefits-item"
-                className="flex items-center gap-2"
-              >
-                <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-foreground-muted text-xs md:text-sm">{benefit}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Stats Section */}
       <section className="py-16 relative">
@@ -269,8 +244,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary-900/30 to-background" />
         <div data-gsap="parallax" className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-500/10 rounded-full blur-[120px]" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div data-gsap="cta" className="max-w-3xl mx-auto text-center">
+        <div data-gsap="cta" className="text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {language === "bs" ? "Spremni za" : "Ready for"} <span className="text-gradient">{language === "bs" ? "saradnju" : "collaboration"}</span>?
             </h2>
@@ -284,7 +258,6 @@ export default function AboutPage() {
               <ArrowRight className="ml-2" size={20} />
             </Button>
           </div>
-        </div>
       </section>
     </>
   );

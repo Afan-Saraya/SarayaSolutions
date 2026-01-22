@@ -1,51 +1,54 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import AdvertisingFormats, { FormatItem } from "./AdvertisingFormats";
 
 const meta: Meta<typeof AdvertisingFormats> = {
-  title: "Sections/Advertising/AdvertisingFormats",
+  title: "Sections/Advertising/Formats",
   component: AdvertisingFormats,
   parameters: {
     layout: "fullscreen",
-    backgrounds: {
-      default: "dark",
-    },
   },
   tags: ["autodocs"],
-  argTypes: {
-    title: { control: "text", description: "Naslov sekcije" },
-    formats: { control: "object", description: "Niz formata oglašavanja" },
-  },
-  decorators: [
-    (Story) => (
-      <div className="bg-background-dark py-8">
-        <div className="container mx-auto px-4 max-w-md">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof AdvertisingFormats>;
 
-const defaultFormats: FormatItem[] = [
+const bosnianFormats: FormatItem[] = [
   {
     icon: "monitor",
     title: "Splash Screen Oglas",
-    description: "Full-screen oglas prilikom spajanja na Wi-Fi.",
+    description: "Full-screen oglas prilikom spajanja na Wi-Fi",
   },
   {
     icon: "layout",
     title: "Banner Oglasi",
-    description: "Banneri na portalu i stranicama unutar mreže.",
+    description: "Banneri na portalu i stranicama unutar mreže",
   },
 ];
 
-/** Default formati oglašavanja */
-export const Default: Story = {
+const englishFormats: FormatItem[] = [
+  {
+    icon: "monitor",
+    title: "Splash Screen Ad",
+    description: "Full-screen ad when connecting to Wi-Fi",
+  },
+  {
+    icon: "layout",
+    title: "Banner Ads",
+    description: "Banners on portal and pages within the network",
+  },
+];
+
+export const Bosnian: Story = {
   args: {
     title: "Formati Oglašavanja",
-    formats: defaultFormats,
+    formats: bosnianFormats,
+  },
+};
+
+export const English: Story = {
+  args: {
+    title: "Advertising Formats",
+    formats: englishFormats,
   },
 };

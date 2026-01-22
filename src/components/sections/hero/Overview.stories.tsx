@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import HeroContent, { HeroContentProps } from "./HeroContent";
 import HeroVisual, { HeroVisualProps } from "./HeroVisual";
 import { Sparkles, Star, Zap } from "lucide-react";
@@ -89,7 +89,7 @@ const HeroOverview = ({
 );
 
 const meta: Meta<typeof HeroOverview> = {
-  title: "Sections/Hero/Overview",
+  title: "Pages/Home/Hero/Overview",
   component: HeroOverview,
   parameters: {
     layout: "fullscreen",

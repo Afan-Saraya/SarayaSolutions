@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import AdvertisingBenefits from "./AdvertisingBenefits";
 
 const meta: Meta<typeof AdvertisingBenefits> = {
-  title: "Sections/Advertising/AdvertisingBenefits",
+  title: "Pages/Connect/Advertising/AdvertisingBenefits",
   component: AdvertisingBenefits,
   parameters: {
     layout: "fullscreen",

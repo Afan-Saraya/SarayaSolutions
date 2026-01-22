@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import CTAContent, { CTAContentProps } from "./CTAContent";
 
 type CTAOverviewProps = CTAContentProps & {
@@ -38,7 +38,7 @@ const CTAOverview = ({
 );
 
 const meta: Meta<typeof CTAOverview> = {
-  title: "Sections/CTA/Overview",
+  title: "Pages/Home/CTA/Overview",
   component: CTAOverview,
   parameters: {
     layout: "fullscreen",

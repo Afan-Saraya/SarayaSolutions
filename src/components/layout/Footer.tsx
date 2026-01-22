@@ -106,7 +106,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground-muted text-xs md:text-base hover:text-white transition-colors">
+                <Link href="/privacy-policy" className="text-foreground-muted text-xs md:text-base hover:text-white transition-colors">
                   {t.footer.privacyPolicy}
                 </Link>
               </li>
