@@ -13,23 +13,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Note: ClientsGrid now uses the Partners component
+// The old clients prop is no longer used
 export const Default: Story = {
-  args: {
-    clients: [
-      "Aria Mall",
-      "BBI Banka",
-      "NLB Banka",
-      "BH Telecom",
-      "eComm",
-      "Central Park",
-      "Sarajevo City",
-      "Tech Hub",
-    ],
-  },
-};
-
-export const FewClients: Story = {
-  args: {
-    clients: ["Aria Mall", "BBI Banka", "NLB Banka", "BH Telecom"],
-  },
+  args: {},
 };
