@@ -71,7 +71,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-6">
+            <Badge variant="secondary" className="mb-6">
               <Shield size={16} className="mr-2" />
               {language === "bs" ? "Pravni dokument" : "Legal Document"}
             </Badge>

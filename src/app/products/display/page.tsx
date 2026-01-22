@@ -635,7 +635,6 @@ export default function DisplayPage() {
             <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-6">{language === "bs" ? "Spremni za" : "Ready for"} <span className="text-gradient">{language === "bs" ? "digitalnu transformaciju?" : "digital transformation?"}</span></h2>
             <p className="text-foreground-muted text-xs md:text-base mb-6 md:mb-8">{language === "bs" ? "Kontaktirajte nas danas i saznajte kako Saraya Display može unaprijediti vaše poslovanje." : "Contact us today and find out how Saraya Display can improve your business."}</p>
             <Button variant="primary" size="lg">{language === "bs" ? "Kontaktirajte nas" : "Contact us"}<ArrowRight className="ml-2" size={20} /></Button>
-          </div>
         </div>
       </section>
     </>

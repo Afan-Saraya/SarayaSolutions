@@ -13,14 +13,13 @@ const meta: Meta<typeof AdvertisingStats> = {
 export default meta;
 type Story = StoryObj<typeof AdvertisingStats>;
 
-export const Bosnian: Story = {
+export const Default: Story = {
   args: {
-    language: "bs",
-  },
-};
-
-export const English: Story = {
-  args: {
-    language: "en",
+    stats: [
+      { value: "20K+", label: "Daily users" },
+      { value: "100K+", label: "Monthly impressions" },
+      { value: "+35%", label: "Average growth" },
+      { value: "95%", label: "Targeting accuracy" },
+    ],
   },
 };

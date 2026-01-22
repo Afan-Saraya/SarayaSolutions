@@ -16,8 +16,8 @@ type Story = StoryObj<typeof CoverageHeader>;
 export const Bosnian: Story = {
   args: {
     badge: "Pokrivenost",
-    title: "Gdje se nalazi",
-    titleHighlight: "Saraya Connect",
+    titleStart: "Gdje se nalazi",
+    titleGradient: "Saraya Connect",
     description: "Naša Wi-Fi mreža pokriva najprometnija mjesta u Sarajevu",
   },
 };
@@ -25,8 +25,8 @@ export const Bosnian: Story = {
 export const English: Story = {
   args: {
     badge: "Coverage",
-    title: "Where is",
-    titleHighlight: "Saraya Connect",
+    titleStart: "Where is",
+    titleGradient: "Saraya Connect",
     description: "Our Wi-Fi network covers the busiest places in Sarajevo",
   },
 };
