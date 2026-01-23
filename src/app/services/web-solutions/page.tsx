@@ -82,7 +82,7 @@ const getTestimonials = (language: string) => [
 ];
 
 const technologies = [
-  "React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "MongoDB", "AWS", "Tailwind CSS"
+  "React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Tailwind CSS"
 ];
 
 export default function WebSolutionsPage() {
